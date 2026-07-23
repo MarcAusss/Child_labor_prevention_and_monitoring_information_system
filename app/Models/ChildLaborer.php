@@ -329,4 +329,13 @@ class ChildLaborer extends Model
             'id'
         );
     }
+
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(
+            ActivityLog::class,
+            'child_laborer_id',
+            'id'
+        );
+    }
 }

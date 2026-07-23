@@ -323,4 +323,22 @@ class ChildLaborerPolicy
                 === (int) $user->id
             );
     }
+
+    public function viewActivity(
+        User $user,
+        ChildLaborer $childLaborer
+    ): bool {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return $user->isProfilingOfficer()
+            && (
+                (int) $childLaborer->created_by
+                === (int) $user->id
+
+                || (int) $childLaborer->assigned_to
+                === (int) $user->id
+            );
+    }
 }

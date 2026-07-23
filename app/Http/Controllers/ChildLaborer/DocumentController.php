@@ -20,7 +20,7 @@ class DocumentController extends Controller
 
     public function __construct(
         private readonly ChildLaborerDocumentService
-            $documentService
+        $documentService
     ) {
     }
 
@@ -57,19 +57,17 @@ class DocumentController extends Controller
                 $search !== '',
                 function ($query) use ($search): void {
                     $query->where(
-                        function ($query) use (
-                            $search
-                        ): void {
+                        function ($query) use ($search): void {
                             $query
                                 ->where(
                                     'original_name',
                                     'like',
-                                    '%'.$search.'%'
+                                    '%' . $search . '%'
                                 )
                                 ->orWhere(
                                     'description',
                                     'like',
-                                    '%'.$search.'%'
+                                    '%' . $search . '%'
                                 );
                         }
                     );
@@ -81,7 +79,7 @@ class DocumentController extends Controller
                     ChildLaborerDocument::documentTypes(),
                     true
                 ),
-                fn ($query) => $query->where(
+                fn($query) => $query->where(
                     'document_type',
                     $type
                 )
@@ -157,27 +155,30 @@ class DocumentController extends Controller
         );
 
         $this->documentService
-            ->recordDownload($document);
+            ->recordDownload(
+                $document,
+                $request->user()
+            );
 
         return Storage::disk(
             $this->documentService->diskName()
         )->download(
-            $document->file_path,
-            $document->original_name,
-            [
-                'Content-Type' =>
-                    $document->mime_type,
+                $document->file_path,
+                $document->original_name,
+                [
+                    'Content-Type' =>
+                        $document->mime_type,
 
-                'X-Content-Type-Options' =>
-                    'nosniff',
+                    'X-Content-Type-Options' =>
+                        'nosniff',
 
-                'Cache-Control' =>
-                    'private, no-store, no-cache, must-revalidate',
+                    'Cache-Control' =>
+                        'private, no-store, no-cache, must-revalidate',
 
-                'Pragma' =>
-                    'no-cache',
-            ]
-        );
+                    'Pragma' =>
+                        'no-cache',
+                ]
+            );
     }
 
     public function destroy(
@@ -215,7 +216,7 @@ class DocumentController extends Controller
     ): void {
         abort_unless(
             (int) $document->child_laborer_id
-                === (int) $childLaborer->id,
+            === (int) $childLaborer->id,
             404
         );
     }

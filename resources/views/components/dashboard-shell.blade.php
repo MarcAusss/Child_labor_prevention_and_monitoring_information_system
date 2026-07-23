@@ -1,8 +1,4 @@
-@props([
-    'title',
-    'subtitle' => null,
-    'badge' => null,
-])
+@props(['title', 'subtitle' => null, 'badge' => null])
 
 <x-app-layout>
     <x-slot name="header">

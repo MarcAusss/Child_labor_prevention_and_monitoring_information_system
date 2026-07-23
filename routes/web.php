@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ChildLaborer\DocumentController;
@@ -72,6 +73,22 @@ Route::middleware('auth')->group(function (): void {
                 [LocationLookupController::class, 'barangays']
             )->name('barangays');
         });
+
+    /*
+|--------------------------------------------------------------------------
+| Global activity logs
+|--------------------------------------------------------------------------
+*/
+
+    Route::get(
+        '/activity-logs',
+        [ActivityLogController::class, 'index']
+    )->name('activity-logs.index');
+
+    Route::get(
+        '/activity-logs/{activityLog}',
+        [ActivityLogController::class, 'show']
+    )->name('activity-logs.show');
     Route::prefix('child-laborers')
         ->name('child-laborers.')
         ->group(function (): void {
@@ -325,6 +342,11 @@ Route::middleware('auth')->group(function (): void {
                 '/{childLaborer}',
                 [ChildLaborerController::class, 'update']
             )->name('update');
+
+            Route::get(
+                '/{childLaborer}/activity-logs',
+                [ActivityLogController::class, 'profile']
+            )->name('activity-logs.index');
             /*
             |--------------------------------------------------------------------------
             | Parents and guardians

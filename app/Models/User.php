@@ -116,4 +116,12 @@ class User extends Authenticatable
             Role::ADMIN,
         ]);
     }
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(
+            ActivityLog::class,
+            'user_id',
+            'id'
+        );
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\ActivityLog;
 use App\Models\ChildLaborer;
 use App\Models\ChildLaborerDocument;
 use App\Models\User;
@@ -17,6 +18,12 @@ class ChildLaborerDocumentService
 {
     private const DISK =
         'clpmis_documents';
+
+    public function __construct(
+        private readonly ActivityLogger
+            $activityLogger
+    ) {
+    }
 
     /**
      * @param array<string, mixed> $data
@@ -201,28 +208,58 @@ class ChildLaborerDocumentService
                         $user->id,
                 ])->save();
 
-                /*
-                 * Soft-delete the database record.
-                 *
-                 * The physical file is intentionally retained
-                 * for future document-history and audit support.
-                 */
                 $document->delete();
             }
         );
     }
 
     public function recordDownload(
-        ChildLaborerDocument $document
+        ChildLaborerDocument $document,
+        User $user
     ): void {
-        $document->increment(
-            'download_count'
+        $this->activityLogger->log(
+            action:
+                ActivityLog::ACTION_DOWNLOADED,
+
+            description:
+                'Downloaded document '
+                .$document->original_name.'.',
+
+            subject:
+                $document,
+
+            metadata: [
+                'document_type' =>
+                    $document->document_type,
+
+                'original_name' =>
+                    $document->original_name,
+
+                'mime_type' =>
+                    $document->mime_type,
+
+                'file_size' =>
+                    $document->file_size,
+
+                'is_confidential' =>
+                    $document->is_confidential,
+            ],
+
+            actor:
+                $user
         );
 
+        /*
+         * saveQuietly prevents the technical counter update from
+         * generating a second generic "updated document" entry.
+         */
         $document->forceFill([
+            'download_count' =>
+                $document->download_count + 1,
+
             'last_downloaded_at' =>
                 now(),
-        ])->save();
+        ])->saveQuietly();
     }
 
     public function exists(

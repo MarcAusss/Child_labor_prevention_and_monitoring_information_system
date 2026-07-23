@@ -291,12 +291,34 @@ class ChildLaborerController extends Controller
             ->limit(3)
             ->get();
 
+        $recentActivityLogs = collect();
+
+        if (
+            $request->user()->can(
+                'viewActivity',
+                $childLaborer
+            )
+        ) {
+            $recentActivityLogs = ActivityLog::query()
+                ->where(
+                    'child_laborer_id',
+                    $childLaborer->id
+                )
+                ->with([
+                    'actor:id,name,email',
+                ])
+                ->latest('created_at')
+                ->limit(5)
+                ->get();
+        }
+
         return view(
             'child-laborers.show',
             compact(
                 'childLaborer',
                 'visibleDocumentCount',
-                'latestDocuments'
+                'latestDocuments',
+                'recentActivityLogs'
             )
         );
     }

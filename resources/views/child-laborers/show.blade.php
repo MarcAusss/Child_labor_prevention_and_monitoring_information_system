@@ -1215,6 +1215,93 @@
         @endif
     </section>
 
+    @can('viewActivity', $childLaborer)
+        <section class="rounded-3xl border border-slate-200
+               bg-white p-6 shadow-sm">
+            <div class="flex flex-col gap-4 sm:flex-row
+                   sm:items-start sm:justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">
+                        Profile Activity
+                    </h2>
+
+                    <p class="mt-1 text-sm text-slate-500">
+                        Recent changes, workflow actions, documents,
+                        interventions, and profile updates.
+                    </p>
+                </div>
+
+                <a href="{{ route('child-laborers.activity-logs.index', $childLaborer) }}"
+                    class="rounded-xl bg-sky-50 px-4 py-2
+                       text-center text-xs font-bold
+                       text-sky-700">
+                    View Complete History
+                </a>
+            </div>
+
+            @if ($recentActivityLogs->isNotEmpty())
+                <div class="mt-5 divide-y divide-slate-200">
+                    @foreach ($recentActivityLogs as $activityLog)
+                        <article class="py-4 first:pt-0 last:pb-0">
+                            <div
+                                class="flex flex-col gap-3
+                                   sm:flex-row sm:items-start
+                                   sm:justify-between">
+                                <div>
+                                    <div
+                                        class="flex flex-wrap
+                                           items-center gap-2">
+                                        <span
+                                            class="rounded-full
+                                               bg-sky-100
+                                               px-3 py-1
+                                               text-xs font-bold
+                                               text-sky-700">
+                                            {{ $activityLog->action_label }}
+                                        </span>
+
+                                        <span
+                                            class="text-xs
+                                               text-slate-400">
+                                            {{ $activityLog->entity_label }}
+                                        </span>
+                                    </div>
+
+                                    <p
+                                        class="mt-2 text-sm
+                                           font-semibold
+                                           text-slate-700">
+                                        {{ $activityLog->description }}
+                                    </p>
+
+                                    <p class="mt-1 text-xs
+                                           text-slate-500">
+                                        {{ $activityLog->actor_display }}
+
+                                        @if ($activityLog->role_name)
+                                            ·
+                                            {{ $activityLog->role_name }}
+                                        @endif
+                                    </p>
+                                </div>
+
+                                <p class="shrink-0 text-xs
+                                       text-slate-400">
+                                    {{ $activityLog->created_at->format('M d, Y h:i A') }}
+                                </p>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            @else
+                <p class="mt-5 rounded-xl bg-slate-50
+                       px-4 py-5 text-sm text-slate-500">
+                    No activity has been recorded for this profile.
+                </p>
+            @endif
+        </section>
+    @endcan
+
     {{-- Actions --}}
     <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 class="text-lg font-bold text-slate-800">
