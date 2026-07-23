@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
 
 class User extends Authenticatable
@@ -35,6 +36,30 @@ class User extends Authenticatable
             'is_active' => 'boolean',
             'password' => 'hashed',
         ];
+    }
+
+    public function createdChildLaborers(): HasMany
+    {
+        return $this->hasMany(
+            ChildLaborer::class,
+            'created_by'
+        );
+    }
+
+    public function assignedChildLaborers(): HasMany
+    {
+        return $this->hasMany(
+            ChildLaborer::class,
+            'assigned_to'
+        );
+    }
+
+    public function reviewedChildLaborers(): HasMany
+    {
+        return $this->hasMany(
+            ChildLaborer::class,
+            'reviewed_by'
+        );
     }
 
     public function role(): BelongsTo
