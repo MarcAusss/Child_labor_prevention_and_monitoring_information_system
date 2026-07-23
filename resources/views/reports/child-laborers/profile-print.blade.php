@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {{ $childLaborer->profile_number }}
+        — Comprehensive Profile
+    </title>
+
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 12mm;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            color: #0f172a;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .toolbar button,
+        .toolbar a {
+            border: 0;
+            border-radius: 6px;
+            padding: 9px 14px;
+            background: #0284c7;
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .report-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 2px solid #0284c7;
+            padding-bottom: 12px;
+        }
+
+        .report-kicker {
+            margin: 0;
+            color: #0284c7;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .report-header h1 {
+            margin: 5px 0 0;
+            font-size: 20px;
+        }
+
+        .report-subtitle {
+            margin: 5px 0 0;
+            color: #475569;
+        }
+
+        .profile-photo {
+            width: 85px;
+            height: 100px;
+            border: 1px solid #94a3b8;
+            object-fit: cover;
+        }
+
+        .report-meta,
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+            margin-top: 10px;
+        }
+
+        .report-meta div,
+        .detail-grid div {
+            border: 1px solid #cbd5e1;
+            padding: 7px;
+        }
+
+        .detail-grid div.wide {
+            grid-column: 1 / -1;
+        }
+
+        .detail-grid span {
+            display: block;
+            color: #64748b;
+            font-size: 7px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .detail-grid strong {
+            display: block;
+            margin-top: 3px;
+            font-size: 9px;
+            line-height: 1.4;
+        }
+
+        .report-section {
+            margin-top: 14px;
+            page-break-inside: auto;
+        }
+
+        .report-section h2 {
+            margin: 0 0 7px;
+            border-bottom: 1px solid #0284c7;
+            padding-bottom: 4px;
+            color: #075985;
+            font-size: 12px;
+        }
+
+        .report-section h3 {
+            margin: 10px 0 5px;
+            font-size: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #94a3b8;
+            padding: 5px;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        th {
+            background: #e0f2fe;
+            color: #075985;
+            font-size: 7px;
+            text-transform: uppercase;
+        }
+
+        td {
+            font-size: 7.5px;
+            line-height: 1.4;
+        }
+
+        .record-card {
+            margin-top: 8px;
+            border: 1px solid #cbd5e1;
+            padding: 8px;
+            page-break-inside: avoid;
+        }
+
+        .sensitive {
+            border: 1px solid #f59e0b;
+            padding: 8px;
+            background: #fffbeb;
+        }
+
+        .empty {
+            color: #64748b;
+            font-size: 8px;
+        }
+
+        .footer {
+            margin-top: 16px;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 7px;
+            color: #64748b;
+            font-size: 7px;
+            text-align: right;
+        }
+
+        @media print {
+            .toolbar {
+                display: none;
+            }
+
+            thead {
+                display: table-header-group;
+            }
+
+            tr {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="toolbar">
+        <button
+            type="button"
+            onclick="window.print()"
+        >
+            Print Report
+        </button>
+
+        <a
+            href="{{ route(
+                'reports.child-laborers.profile',
+                $childLaborer
+            ) }}"
+        >
+            Back
+        </a>
+    </div>
+
+    @include(
+        'reports.child-laborers.partials.profile-content'
+    )
+
+    <footer class="footer">
+        Generated by {{ $generatedBy }}
+        ·
+        {{ $generatedAt->format(
+            'F d, Y h:i A'
+        ) }}
+        ·
+        CLPMIS
+    </footer>
+</body>
+</html>

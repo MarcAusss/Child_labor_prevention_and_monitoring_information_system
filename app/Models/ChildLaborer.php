@@ -338,4 +338,12 @@ class ChildLaborer extends Model
             'id'
         );
     }
+    public function auditSchedules(): HasMany
+    {
+        return $this->hasMany(
+            AuditSchedule::class,
+            'child_laborer_id',
+            'id'
+        );
+    }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuditScheduleController;
 use App\Http\Controllers\ChildLaborer\DocumentController;
 use App\Http\Controllers\ChildLaborer\HealthInformationController;
 use App\Http\Controllers\ChildLaborer\InterventionController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\ChildLaborer\BirthInformationController;
 use App\Http\Controllers\ChildLaborer\ResidentialAddressController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilingOfficer\DashboardController as ProfilingOfficerDashboardController;
+use App\Http\Controllers\Reports\ChildLaborerReportController;
 use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboardController;
 use App\Http\Controllers\Viewer\DashboardController as ViewerDashboardController;
 use App\Http\Controllers\Admin\LocationTestController;
@@ -74,11 +76,60 @@ Route::middleware('auth')->group(function (): void {
             )->name('barangays');
         });
 
+
+    /*
+|--------------------------------------------------------------------------
+| Audit schedules
+|--------------------------------------------------------------------------
+*/
+
+    Route::get(
+        '/audit-schedules',
+        [AuditScheduleController::class, 'index']
+    )->name('audit-schedules.index');
+
+    Route::get(
+        '/audit-schedules/{auditSchedule}/edit',
+        [AuditScheduleController::class, 'edit']
+    )->name('audit-schedules.edit');
+
+    Route::put(
+        '/audit-schedules/{auditSchedule}',
+        [AuditScheduleController::class, 'update']
+    )->name('audit-schedules.update');
+
+    Route::get(
+        '/audit-schedules/{auditSchedule}',
+        [AuditScheduleController::class, 'show']
+    )->name('audit-schedules.show');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Audit evaluations
+    |--------------------------------------------------------------------------
+    */
+
+    Route::post(
+        '/audit-schedules/{auditSchedule}/evaluations',
+        [AuditEvaluationController::class, 'store']
+    )->name('audit-schedules.evaluations.store');
+
+    Route::get(
+        '/audit-schedules/{auditSchedule}/evaluations/{auditEvaluation}/edit',
+        [AuditEvaluationController::class, 'edit']
+    )->name('audit-schedules.evaluations.edit');
+
+    Route::put(
+        '/audit-schedules/{auditSchedule}/evaluations/{auditEvaluation}',
+        [AuditEvaluationController::class, 'update']
+    )->name('audit-schedules.evaluations.update');
     /*
 |--------------------------------------------------------------------------
 | Global activity logs
 |--------------------------------------------------------------------------
 */
+
+
 
     Route::get(
         '/activity-logs',
@@ -112,6 +163,79 @@ Route::middleware('auth')->group(function (): void {
                 [ChildLaborerController::class, 'photo']
             )->name('photo');
 
+            Route::get(
+                '/{childLaborer}/audit-schedules/create',
+                [AuditScheduleController::class, 'create']
+            )->name('audit-schedules.create');
+
+            Route::post(
+                '/{childLaborer}/audit-schedules',
+                [AuditScheduleController::class, 'store']
+            )->name('audit-schedules.store');
+
+            /*
+            |--------------------------------------------------------------------------
+            | Reports
+            |--------------------------------------------------------------------------
+            */
+
+            Route::prefix('reports')
+                ->name('reports.')
+                ->group(function (): void {
+                    Route::get(
+                        '/child-laborers',
+                        [
+                            ChildLaborerReportController::class,
+                            'index',
+                        ]
+                    )->name(
+                            'child-laborers.index'
+                        );
+
+                    /*
+                     * Static routes must be placed before the dynamic
+                     * {childLaborer} route.
+                     */
+                    Route::get(
+                        '/child-laborers/export/csv',
+                        [
+                            ChildLaborerReportController::class,
+                            'exportCsv',
+                        ]
+                    )->name(
+                            'child-laborers.export.csv'
+                        );
+
+                    Route::get(
+                        '/child-laborers/print',
+                        [
+                            ChildLaborerReportController::class,
+                            'printMasterList',
+                        ]
+                    )->name(
+                            'child-laborers.print'
+                        );
+
+                    Route::get(
+                        '/child-laborers/{childLaborer}/print',
+                        [
+                            ChildLaborerReportController::class,
+                            'printProfile',
+                        ]
+                    )->name(
+                            'child-laborers.profile.print'
+                        );
+
+                    Route::get(
+                        '/child-laborers/{childLaborer}',
+                        [
+                            ChildLaborerReportController::class,
+                            'profile',
+                        ]
+                    )->name(
+                            'child-laborers.profile'
+                        );
+                });
             /*
             |--------------------------------------------------------------------------
             | Education records

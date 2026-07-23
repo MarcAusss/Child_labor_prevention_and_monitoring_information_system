@@ -1302,6 +1302,124 @@
         </section>
     @endcan
 
+    @can('viewAny', \App\Models\AuditSchedule::class)
+        <section class="rounded-3xl border border-slate-200
+               bg-white p-6 shadow-sm">
+            <div class="flex flex-col gap-4 sm:flex-row
+                   sm:items-start sm:justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">
+                        Audit Schedules and Evaluations
+                    </h2>
+
+                    <p class="mt-1 text-sm text-slate-500">
+                        Scheduled reviews, findings, recommendations,
+                        and finalized audit evaluations.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                    @if (in_array($childLaborer->status, ['Submitted', 'Approved'], true))
+                        <a href="{{ route('child-laborers.audit-schedules.create', $childLaborer) }}"
+                            class="rounded-xl bg-sky-600
+                               px-4 py-2 text-center
+                               text-xs font-bold text-white">
+                            Create Audit Schedule
+                        </a>
+                    @endif
+
+                    <a href="{{ route('audit-schedules.index', [
+                        'search' => $childLaborer->profile_number,
+                    ]) }}"
+                        class="rounded-xl bg-sky-50
+                           px-4 py-2 text-center
+                           text-xs font-bold text-sky-700">
+                        View All Schedules
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-5 rounded-2xl border
+                   border-slate-200 bg-slate-50 p-5">
+                <p class="text-xs font-bold uppercase
+                       tracking-wide text-slate-400">
+                    Total Audit Schedules
+                </p>
+
+                <p class="mt-2 text-3xl font-bold text-slate-800">
+                    {{ number_format($auditScheduleCount) }}
+                </p>
+            </div>
+
+            @if ($latestAuditSchedules->isNotEmpty())
+                <div class="mt-5 space-y-3">
+                    @foreach ($latestAuditSchedules as $auditSchedule)
+                        @php
+                            $auditStatusClasses = match ($auditSchedule->status) {
+                                'Scheduled' => 'bg-sky-100 text-sky-700',
+
+                                'In Progress' => 'bg-amber-100 text-amber-700',
+
+                                'Completed' => 'bg-emerald-100 text-emerald-700',
+
+                                'Cancelled' => 'bg-red-100 text-red-700',
+
+                                default => 'bg-slate-100 text-slate-700',
+                            };
+                        @endphp
+
+                        <div
+                            class="flex flex-col gap-4
+                               rounded-2xl border
+                               border-slate-200 p-4
+                               sm:flex-row sm:items-center
+                               sm:justify-between">
+                            <div>
+                                <div class="flex flex-wrap
+                                       items-center gap-2">
+                                    <span
+                                        class="rounded-full px-3 py-1
+                                           text-xs font-bold
+                                           {{ $auditStatusClasses }}">
+                                        {{ $auditSchedule->status }}
+                                    </span>
+
+                                    <span class="text-xs text-slate-400">
+                                        {{ $auditSchedule->scheduled_at->format('F d, Y h:i A') }}
+                                    </span>
+                                </div>
+
+                                <p class="mt-2 text-sm font-bold
+                                       text-slate-700">
+                                    Assigned to
+                                    {{ $auditSchedule->assignedAdministrator->name }}
+                                </p>
+
+                                <p class="mt-1 text-xs
+                                       text-slate-500">
+                                    {{ $auditSchedule->location ?: 'No location provided' }}
+                                </p>
+                            </div>
+
+                            <a href="{{ route('audit-schedules.show', $auditSchedule) }}"
+                                class="shrink-0 rounded-xl
+                                   bg-sky-50 px-4 py-2
+                                   text-center text-xs
+                                   font-bold text-sky-700">
+                                Open Audit
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p class="mt-5 rounded-xl bg-slate-50
+                       px-4 py-5 text-sm text-slate-500">
+                    No audit schedule has been created for this profile.
+                </p>
+            @endif
+        </section>
+    @endcan
+
     {{-- Actions --}}
     <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 class="text-lg font-bold text-slate-800">
@@ -1328,6 +1446,14 @@
                 <a href="{{ route('child-laborers.residential-address.edit', $childLaborer) }}"
                     class="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-bold text-white">
                     Residential Address
+                </a>
+            @endcan
+            @can('view-reports')
+                <a href="{{ route('reports.child-laborers.profile', $childLaborer) }}"
+                    class="rounded-xl bg-sky-50
+               px-4 py-2 text-sm font-bold
+               text-sky-700">
+                    Profile Report
                 </a>
             @endcan
 

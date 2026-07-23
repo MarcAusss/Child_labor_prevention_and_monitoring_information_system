@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ChildLaborer\ReturnChildLaborerRequest;
 use App\Http\Requests\ChildLaborer\StoreChildLaborerRequest;
 use App\Http\Requests\ChildLaborer\UpdateChildLaborerRequest;
+use App\Models\ActivityLog;
+use App\Models\AuditSchedule;
 use App\Models\ChildLaborer;
 use App\Models\Role;
 use App\Models\User;
@@ -232,6 +234,8 @@ class ChildLaborerController extends Controller
         );
 
 
+
+
         $relationships = [
             'creator:id,name,email',
             'assignedOfficer:id,name,email',
@@ -312,13 +316,47 @@ class ChildLaborerController extends Controller
                 ->get();
         }
 
+        $auditScheduleCount = 0;
+        $latestAuditSchedules = collect();
+
+        if (
+            $request->user()->can(
+                'viewAny',
+                AuditSchedule::class
+            )
+        ) {
+            $auditScheduleCount = $childLaborer
+                ->auditSchedules()
+                ->count();
+
+            $latestAuditSchedules = $childLaborer
+                ->auditSchedules()
+                ->with([
+                    'assignedAdministrator:id,name,email',
+
+                    'latestEvaluation' => function ($query): void {
+                        $query->select([
+                            'audit_evaluations.id',
+                            'audit_evaluations.audit_schedule_id',
+                            'audit_evaluations.evaluation_date',
+                            'audit_evaluations.status',
+                        ]);
+                    },
+                ])
+                ->orderByDesc('scheduled_at')
+                ->limit(3)
+                ->get();
+        }
+
         return view(
             'child-laborers.show',
             compact(
                 'childLaborer',
                 'visibleDocumentCount',
                 'latestDocuments',
-                'recentActivityLogs'
+                'recentActivityLogs',
+                'auditScheduleCount',
+                'latestAuditSchedules'
             )
         );
     }

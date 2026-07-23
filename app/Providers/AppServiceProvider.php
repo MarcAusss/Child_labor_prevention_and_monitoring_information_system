@@ -3,6 +3,8 @@
 namespace App\Providers;
 use App\Listeners\AuthenticationActivitySubscriber;
 use App\Models\ActivityLog;
+use App\Models\AuditEvaluation;
+use App\Models\AuditSchedule;
 use App\Models\BirthInformation;
 use App\Models\ChildLaborer;
 use App\Models\ChildLaborerDocument;
@@ -54,6 +56,9 @@ class AppServiceProvider extends ServiceProvider
             HealthInformation::class,
             Intervention::class,
             ChildLaborerDocument::class,
+
+            AuditSchedule::class,
+            AuditEvaluation::class,
         ];
 
         foreach ($auditedModels as $model) {

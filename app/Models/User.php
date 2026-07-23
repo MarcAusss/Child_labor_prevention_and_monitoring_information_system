@@ -124,4 +124,40 @@ class User extends Authenticatable
             'id'
         );
     }
+
+    public function createdAuditSchedules(): HasMany
+    {
+        return $this->hasMany(
+            AuditSchedule::class,
+            'created_by',
+            'id'
+        );
+    }
+
+    public function assignedAuditSchedules(): HasMany
+    {
+        return $this->hasMany(
+            AuditSchedule::class,
+            'assigned_to',
+            'id'
+        );
+    }
+
+    public function auditEvaluations(): HasMany
+    {
+        return $this->hasMany(
+            AuditEvaluation::class,
+            'evaluated_by',
+            'id'
+        );
+    }
+
+    public function updatedAuditEvaluations(): HasMany
+    {
+        return $this->hasMany(
+            AuditEvaluation::class,
+            'updated_by',
+            'id'
+        );
+    }
 }
