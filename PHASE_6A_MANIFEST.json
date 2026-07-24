@@ -1,0 +1,24 @@
+{
+  "phase": "6A",
+  "module": "Notifications and Inbox",
+  "direct_project_overlay": true,
+  "created_files": [
+    "database/migrations/2026_07_25_000000_create_notifications_table.php",
+    "app/Notifications/SystemNotification.php",
+    "app/Services/NotificationService.php",
+    "app/Observers/NotificationObserver.php",
+    "app/Providers/NotificationServiceProvider.php",
+    "app/Http/Controllers/NotificationController.php",
+    "routes/notifications.php",
+    "resources/views/notifications/index.blade.php",
+    "app/View/Components/NotificationBell.php",
+    "resources/views/components/notification-bell.blade.php",
+    "tests/Feature/Notifications/NotificationInboxTest.php",
+    "README_PHASE_6A.md"
+  ],
+  "modified_files": [
+    "bootstrap/providers.php"
+  ],
+  "dashboard_links_modified": false,
+  "migration_required": true
+}
