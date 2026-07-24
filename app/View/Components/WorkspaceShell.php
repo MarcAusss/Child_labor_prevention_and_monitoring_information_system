@@ -19,197 +19,169 @@ class WorkspaceShell extends Component
     {
         $user = Auth::user();
 
-        return view(
-            'components.workspace-shell',
-            [
-                'user' => $user,
-
-                'navigation' =>
-                    $this->navigation($user),
-            ]
-        );
+        return view('components.workspace-shell', [
+            'user' => $user,
+            'navigation' => $this->navigation($user),
+        ]);
     }
 
     /**
      * @return array<int, array<string, mixed>>
      */
-    private function navigation(
-        mixed $user
-    ): array {
+    private function navigation(mixed $user): array
+    {
         $sections = [
             [
-                'label' => 'Workspace',
-
+                'label' => 'Overview',
                 'links' => [
                     $this->link(
-                        'Dashboard',
-                        'workspace.dashboard',
-                        'workspace.dashboard',
-                        'dashboard'
+                        'Role Dashboard',
+                        'dashboard',
+                        [
+                            'dashboard',
+                            'super-admin.dashboard',
+                            'admin.dashboard',
+                            'profiling-officer.dashboard',
+                            'viewer.dashboard',
+                        ],
+                        'home'
                     ),
-
                     $this->link(
-                        'Child Profiles',
-                        'child-laborers.index',
-                        'child-laborers.*',
-                        'profiles'
+                        'Operations Overview',
+                        'workspace.dashboard',
+                        ['workspace.dashboard'],
+                        'pulse'
                     ),
-
                     $this->link(
                         'Notifications',
                         'notifications.index',
-                        'notifications.*',
+                        ['notifications.*'],
                         'bell'
                     ),
                 ],
             ],
-
             [
-                'label' => 'Operations',
-
+                'label' => 'Case Management',
                 'links' => [
+                    $this->link(
+                        'Child Profiles',
+                        'child-laborers.index',
+                        ['child-laborers.*'],
+                        'profiles'
+                    ),
                     $this->link(
                         'Audit Schedules',
                         'audit-schedules.index',
-                        'audit-schedules.*',
+                        ['audit-schedules.*'],
                         'audit'
                     ),
                 ],
             ],
-
             [
-                'label' => 'Reports',
-
+                'label' => 'Information and Reports',
                 'links' => [
                     $this->link(
                         'Master Reports',
                         'reports.child-laborers.index',
-                        'reports.child-laborers.*',
+                        ['reports.child-laborers.*'],
                         'report'
                     ),
-
                     $this->link(
-                        'Statistics',
+                        'Statistical Summary',
                         'reports.statistics.index',
-                        'reports.statistics.*',
+                        ['reports.statistics.*'],
                         'chart'
                     ),
                 ],
             ],
-
             [
-                'label' => 'Administration',
-
+                'label' => 'System Administration',
                 'links' => [
                     $this->link(
                         'User Management',
-                        'users.index',
-                        'users.*',
+                        'admin.users.index',
+                        ['admin.users.*'],
                         'users'
                     ),
-
                     $this->link(
                         'Activity Logs',
                         'activity-logs.index',
-                        'activity-logs.*',
+                        ['activity-logs.*'],
                         'history'
                     ),
-
+                    $this->link(
+                        'Backup and Recovery',
+                        'backups.index',
+                        ['backups.*'],
+                        'backup'
+                    ),
                     $this->link(
                         'System Security',
                         'security.status',
-                        'security.*',
+                        ['security.*'],
                         'security'
+                    ),
+                    $this->link(
+                        'Quality Assurance',
+                        'quality-assurance.index',
+                        ['quality-assurance.*'],
+                        'quality'
                     ),
                 ],
             ],
         ];
 
         return collect($sections)
-            ->map(
-                function (
-                    array $section
-                ) use ($user): array {
-                    $links = collect(
-                        $section['links']
+            ->map(function (array $section) use ($user): array {
+                $links = collect($section['links'])
+                    ->filter(fn (array $link): bool =>
+                        Route::has($link['route'])
+                        && $this->canSeeLink($user, $link['route'])
                     )
-                        ->filter(
-                            fn (
-                                array $link
-                            ): bool =>
-                                Route::has(
-                                    $link['route']
-                                )
-                                && $this
-                                    ->canSeeLink(
-                                        $user,
-                                        $link['route']
-                                    )
-                        )
-                        ->values()
-                        ->all();
+                    ->values()
+                    ->all();
 
-                    return [
-                        ...$section,
-                        'links' => $links,
-                    ];
-                }
-            )
-            ->filter(
-                fn (array $section): bool =>
-                    $section['links'] !== []
-            )
+                return [
+                    ...$section,
+                    'links' => $links,
+                ];
+            })
+            ->filter(fn (array $section): bool => $section['links'] !== [])
             ->values()
             ->all();
     }
 
     /**
-     * @return array<string, string>
+     * @param array<int, string> $patterns
+     * @return array<string, mixed>
      */
     private function link(
         string $label,
         string $route,
-        string $pattern,
+        array $patterns,
         string $icon
     ): array {
-        return compact(
-            'label',
-            'route',
-            'pattern',
-            'icon'
-        );
+        return compact('label', 'route', 'patterns', 'icon');
     }
 
-    private function canSeeLink(
-        mixed $user,
-        string $routeName
-    ): bool {
+    private function canSeeLink(mixed $user, string $routeName): bool
+    {
         if (! $user) {
             return false;
         }
 
-        if (
-            in_array(
-                $routeName,
-                [
-                    'audit-schedules.index',
-                    'activity-logs.index',
-                    'users.index',
-                    'security.status',
-                ],
-                true
-            )
-        ) {
-            return $user->isSuperAdmin()
-                || $user->isAdmin();
+        if (in_array($routeName, [
+            'audit-schedules.index',
+            'admin.users.index',
+            'activity-logs.index',
+            'backups.index',
+            'security.status',
+            'quality-assurance.index',
+        ], true)) {
+            return $user->isSuperAdmin() || $user->isAdmin();
         }
 
-        if (
-            str_starts_with(
-                $routeName,
-                'reports.'
-            )
-        ) {
+        if (str_starts_with($routeName, 'reports.')) {
             return $user->isSuperAdmin()
                 || $user->isAdmin()
                 || $user->isViewer();

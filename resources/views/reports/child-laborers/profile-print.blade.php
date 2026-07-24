@@ -25,8 +25,8 @@
 
         body {
             margin: 0;
-            color: #0f172a;
-            font-family: Arial, Helvetica, sans-serif;
+            color: #17302e;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
             font-size: 10px;
         }
 
@@ -42,7 +42,7 @@
             border: 0;
             border-radius: 6px;
             padding: 9px 14px;
-            background: #0284c7;
+            background: #286f68;
             color: white;
             font-weight: 700;
             text-decoration: none;
@@ -54,13 +54,13 @@
             align-items: flex-start;
             justify-content: space-between;
             gap: 20px;
-            border-bottom: 2px solid #0284c7;
+            border-bottom: 2px solid #286f68;
             padding-bottom: 12px;
         }
 
         .report-kicker {
             margin: 0;
-            color: #0284c7;
+            color: #286f68;
             font-size: 9px;
             font-weight: 700;
             text-transform: uppercase;
@@ -73,13 +73,13 @@
 
         .report-subtitle {
             margin: 5px 0 0;
-            color: #475569;
+            color: #49615a;
         }
 
         .profile-photo {
             width: 85px;
             height: 100px;
-            border: 1px solid #94a3b8;
+            border: 1px solid #8fa39a;
             object-fit: cover;
         }
 
@@ -93,7 +93,7 @@
 
         .report-meta div,
         .detail-grid div {
-            border: 1px solid #cbd5e1;
+            border: 1px solid #c8d4ce;
             padding: 7px;
         }
 
@@ -103,7 +103,7 @@
 
         .detail-grid span {
             display: block;
-            color: #64748b;
+            color: #647b73;
             font-size: 7px;
             font-weight: 700;
             text-transform: uppercase;
@@ -123,9 +123,9 @@
 
         .report-section h2 {
             margin: 0 0 7px;
-            border-bottom: 1px solid #0284c7;
+            border-bottom: 1px solid #286f68;
             padding-bottom: 4px;
-            color: #075985;
+            color: #173c39;
             font-size: 12px;
         }
 
@@ -141,15 +141,15 @@
 
         th,
         td {
-            border: 1px solid #94a3b8;
+            border: 1px solid #8fa39a;
             padding: 5px;
             vertical-align: top;
             text-align: left;
         }
 
         th {
-            background: #e0f2fe;
-            color: #075985;
+            background: #dcefe9;
+            color: #173c39;
             font-size: 7px;
             text-transform: uppercase;
         }
@@ -161,7 +161,7 @@
 
         .record-card {
             margin-top: 8px;
-            border: 1px solid #cbd5e1;
+            border: 1px solid #c8d4ce;
             padding: 8px;
             page-break-inside: avoid;
         }
@@ -173,15 +173,15 @@
         }
 
         .empty {
-            color: #64748b;
+            color: #647b73;
             font-size: 8px;
         }
 
         .footer {
             margin-top: 16px;
-            border-top: 1px solid #cbd5e1;
+            border-top: 1px solid #c8d4ce;
             padding-top: 7px;
-            color: #64748b;
+            color: #647b73;
             font-size: 7px;
             text-align: right;
         }

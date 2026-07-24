@@ -24,8 +24,8 @@
 
         body {
             margin: 0;
-            color: #0f172a;
-            font-family: Arial, Helvetica, sans-serif;
+            color: #17302e;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
             font-size: 9px;
         }
 
@@ -41,7 +41,7 @@
             border: 0;
             border-radius: 6px;
             padding: 9px 14px;
-            background: #0284c7;
+            background: #286f68;
             color: white;
             font-weight: 700;
             text-decoration: none;
@@ -49,7 +49,7 @@
         }
 
         .header {
-            border-bottom: 2px solid #0284c7;
+            border-bottom: 2px solid #286f68;
             padding-bottom: 10px;
             text-align: center;
         }
@@ -61,7 +61,7 @@
 
         .header p {
             margin: 5px 0 0;
-            color: #475569;
+            color: #49615a;
         }
 
         .meta,
@@ -81,13 +81,13 @@
 
         .meta div,
         .summary div {
-            border: 1px solid #cbd5e1;
+            border: 1px solid #c8d4ce;
             padding: 7px;
         }
 
         .summary span {
             display: block;
-            color: #64748b;
+            color: #647b73;
             font-size: 7px;
             font-weight: 700;
             text-transform: uppercase;
@@ -107,15 +107,15 @@
         }
 
         .section {
-            border: 1px solid #cbd5e1;
+            border: 1px solid #c8d4ce;
             page-break-inside: avoid;
         }
 
         .section h2 {
             margin: 0;
-            background: #e0f2fe;
+            background: #dcefe9;
             padding: 7px;
-            color: #075985;
+            color: #173c39;
             font-size: 10px;
         }
 
@@ -126,13 +126,13 @@
 
         th,
         td {
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #dbe2dc;
             padding: 5px 7px;
             text-align: left;
         }
 
         th {
-            color: #475569;
+            color: #49615a;
             font-size: 7px;
             text-transform: uppercase;
         }
@@ -148,7 +148,7 @@
 
         .footer {
             margin-top: 12px;
-            color: #64748b;
+            color: #647b73;
             font-size: 7px;
             text-align: right;
         }

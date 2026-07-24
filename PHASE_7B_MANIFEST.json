@@ -1,0 +1,30 @@
+{
+  "phase": "7B",
+  "module": "Backup and Recovery",
+  "direct_project_overlay": true,
+  "created_files": [
+    "config/clpmis-backup.php",
+    ".env.backup.example",
+    "database/migrations/2026_07_25_030000_create_backup_runs_table.php",
+    "app/Models/BackupRun.php",
+    "app/Services/Backup/BackupService.php",
+    "app/Services/Backup/RestoreService.php",
+    "app/Http/Controllers/BackupController.php",
+    "app/Console/Commands/CreateClpmisBackup.php",
+    "app/Console/Commands/VerifyClpmisBackup.php",
+    "app/Console/Commands/CleanupClpmisBackups.php",
+    "app/Console/Commands/RestoreClpmisBackup.php",
+    "routes/backups.php",
+    "app/Providers/BackupServiceProvider.php",
+    "resources/views/backups/index.blade.php",
+    "tests/Feature/Backup/BackupAccessTest.php",
+    "README_PHASE_7B.md"
+  ],
+  "modified_files": [
+    "bootstrap/providers.php",
+    "app/View/Components/WorkspaceShell.php"
+  ],
+  "migration_required": true,
+  "direct_test_url": "/backups",
+  "remaining_phases_after_install": 3
+}

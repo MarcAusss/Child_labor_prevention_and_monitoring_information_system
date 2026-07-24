@@ -1,145 +1,123 @@
 <x-dashboard-shell
-    title="Super Admin Dashboard"
-    subtitle="Complete administration and system monitoring."
+    title="Super Administrator Dashboard"
+    subtitle="System-wide oversight, access control, records, security, and operational readiness."
     badge="Super Admin"
 >
-    <section
-        class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-700 via-sky-600 to-cyan-500 p-8 text-white shadow-xl shadow-sky-200/60">
-        <div class="relative z-10 max-w-3xl">
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-100">
-                CLPMIS
-            </p>
+    <section class="clpmis-hero">
+        <div class="relative z-10 flex flex-col gap-7 xl:flex-row xl:items-end xl:justify-between">
+            <div class="max-w-3xl">
+                <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-sky-200">Executive system oversight</p>
+                <h2 class="mt-4 text-balance text-3xl font-extrabold tracking-tight sm:text-4xl">
+                    One secure view of people, profiles, reviews, and system health.
+                </h2>
+                <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-200">
+                    Review access, profile workload, pending administrative actions, audit schedules, and the latest system activity from a formal control workspace.
+                </p>
+            </div>
 
-            <h1 class="mt-3 text-3xl font-black sm:text-4xl">
-                Child Labor Prevention and Monitoring
-            </h1>
-
-            <p class="mt-4 max-w-2xl text-sm leading-7 text-sky-50 sm:text-base">
-                Manage user accounts, system access, child laborer records,
-                interventions, audits, reports, and system configuration.
-            </p>
-        </div>
-
-        <div
-            class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10">
-        </div>
-
-        <div
-            class="absolute -bottom-24 right-24 h-60 w-60 rounded-full bg-cyan-300/20">
+            <div class="flex flex-wrap gap-3">
+                <a href="{{ route('admin.users.index') }}" class="rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-slate-950 shadow-lg hover:bg-sky-50">Manage users</a>
+                <a href="{{ route('security.status') }}" class="rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-extrabold text-white backdrop-blur hover:bg-white/15">Security status</a>
+            </div>
         </div>
     </section>
 
-    <section class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p class="text-sm font-semibold text-slate-500">
-                Total Users
-            </p>
-
-            <p class="mt-3 text-3xl font-black text-slate-800">
-                {{ number_format($totalUsers) }}
-            </p>
-        </div>
-
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p class="text-sm font-semibold text-slate-500">
-                Active Users
-            </p>
-
-            <p class="mt-3 text-3xl font-black text-emerald-600">
-                {{ number_format($activeUsers) }}
-            </p>
-        </div>
-
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p class="text-sm font-semibold text-slate-500">
-                Inactive Users
-            </p>
-
-            <p class="mt-3 text-3xl font-black text-red-600">
-                {{ number_format($inactiveUsers) }}
-            </p>
-        </div>
-
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p class="text-sm font-semibold text-slate-500">
-                Active Roles
-            </p>
-
-            <p class="mt-3 text-3xl font-black text-sky-600">
-                {{ number_format($totalRoles) }}
-            </p>
-        </div>
+    <section class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        @foreach ([
+            ['Child profiles', $totalProfiles, 'All registered records', 'text-sky-800', 'bg-sky-100'],
+            ['Pending review', $submittedProfiles, 'Submitted profiles', 'text-amber-800', 'bg-amber-100'],
+            ['System users', $totalUsers, $activeUsers.' active accounts', 'text-indigo-800', 'bg-indigo-100'],
+            ['Upcoming audits', $upcomingAudits, 'Scheduled reviews', 'text-emerald-800', 'bg-emerald-100'],
+        ] as [$label, $value, $note, $textClass, $bgClass])
+            <article class="clpmis-metric-card">
+                <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl {{ $bgClass }} {{ $textClass }}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 12h14M12 5v14" /></svg>
+                </span>
+                <p class="mt-5 text-[10px] font-extrabold uppercase tracking-[0.16em] text-slate-400">{{ $label }}</p>
+                <p class="mt-2 text-4xl font-extrabold tracking-tight text-slate-950">{{ number_format($value) }}</p>
+                <p class="mt-2 text-xs text-slate-500">{{ $note }}</p>
+            </article>
+        @endforeach
     </section>
 
-    <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-        <div class="border-b border-slate-200 px-6 py-5">
-            <h2 class="text-lg font-bold text-slate-800">
-                Recently Added Users
-            </h2>
-        </div>
+    <section class="grid gap-6 xl:grid-cols-[1.1fr_.9fr]">
+        <article class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+            <div class="flex items-center justify-between border-b border-slate-200 px-6 py-5">
+                <div>
+                    <p class="clpmis-eyebrow">Access administration</p>
+                    <h2 class="mt-1 text-lg font-extrabold text-slate-950">Recently added users</h2>
+                </div>
+                <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">{{ $inactiveUsers }} inactive</span>
+            </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-slate-200">
-                <thead class="bg-sky-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-sky-800">
-                            Name
-                        </th>
-
-                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-sky-800">
-                            Email
-                        </th>
-
-                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-sky-800">
-                            Role
-                        </th>
-
-                        <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider text-sky-800">
-                            Status
-                        </th>
-                    </tr>
-                </thead>
-
-                <tbody class="divide-y divide-slate-100 bg-white">
-                    @forelse ($recentUsers as $recentUser)
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-slate-800">
-                                {{ $recentUser->name }}
-                            </td>
-
-                            <td class="px-6 py-4 text-sm text-slate-600">
-                                {{ $recentUser->email }}
-                            </td>
-
-                            <td class="px-6 py-4 text-sm text-slate-600">
-                                {{ $recentUser->role?->name ?? 'No Role' }}
-                            </td>
-
-                            <td class="px-6 py-4 text-center">
-                                @if ($recentUser->is_active)
-                                    <span
-                                        class="inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700 ring-1 ring-emerald-200">
-                                        Active
-                                    </span>
-                                @else
-                                    <span
-                                        class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700 ring-1 ring-red-200">
-                                        Inactive
-                                    </span>
-                                @endif
-                            </td>
+                            <th class="px-6 py-4 text-left">User</th>
+                            <th class="px-6 py-4 text-left">Role</th>
+                            <th class="px-6 py-4 text-center">Status</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td
-                                colspan="4"
-                                class="px-6 py-10 text-center text-sm text-slate-500">
-                                No users found.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @forelse ($recentUsers as $recentUser)
+                            <tr>
+                                <td class="px-6 py-4">
+                                    <p class="text-sm font-extrabold text-slate-900">{{ $recentUser->name }}</p>
+                                    <p class="mt-1 text-xs text-slate-500">{{ $recentUser->email }}</p>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold text-slate-600">{{ $recentUser->role?->name ?? 'No role' }}</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="inline-flex rounded-full px-3 py-1 text-[10px] font-extrabold uppercase {{ $recentUser->is_active ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700' }}">
+                                        {{ $recentUser->is_active ? 'Active' : 'Inactive' }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="3" class="px-6 py-12 text-center text-sm text-slate-500">No users found.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <article class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+            <div class="border-b border-slate-200 px-6 py-5">
+                <p class="clpmis-eyebrow">Records activity</p>
+                <h2 class="mt-1 text-lg font-extrabold text-slate-950">Recently updated profiles</h2>
+            </div>
+
+            <div class="divide-y divide-slate-100">
+                @forelse ($recentProfiles as $profile)
+                    <a href="{{ route('child-laborers.show', $profile) }}" class="flex items-center gap-4 px-6 py-4 hover:bg-sky-50/60">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-xs font-extrabold text-sky-800">
+                            {{ str($profile->first_name)->substr(0, 1)->upper() }}{{ str($profile->last_name)->substr(0, 1)->upper() }}
+                        </span>
+                        <span class="min-w-0 flex-1">
+                            <span class="block truncate text-sm font-extrabold text-slate-900">{{ $profile->full_name }}</span>
+                            <span class="mt-1 block truncate text-xs text-slate-500">{{ $profile->profile_number }} · {{ $profile->assignedOfficer?->name ?? 'Unassigned' }}</span>
+                        </span>
+                        <span class="rounded-full bg-slate-100 px-3 py-1 text-[10px] font-extrabold text-slate-600">{{ $profile->status }}</span>
+                    </a>
+                @empty
+                    <p class="px-6 py-12 text-center text-sm text-slate-500">No profiles found.</p>
+                @endforelse
+            </div>
+        </article>
+    </section>
+
+    <section class="grid gap-4 sm:grid-cols-3">
+        <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+            <p class="text-[10px] font-extrabold uppercase tracking-wide text-slate-400">Active accounts</p>
+            <p class="mt-2 text-2xl font-extrabold text-emerald-700">{{ number_format($activeUsers) }}</p>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+            <p class="text-[10px] font-extrabold uppercase tracking-wide text-slate-400">Inactive accounts</p>
+            <p class="mt-2 text-2xl font-extrabold text-red-700">{{ number_format($inactiveUsers) }}</p>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+            <p class="text-[10px] font-extrabold uppercase tracking-wide text-slate-400">Active roles</p>
+            <p class="mt-2 text-2xl font-extrabold text-sky-800">{{ number_format($totalRoles) }}</p>
+        </article>
     </section>
 </x-dashboard-shell>

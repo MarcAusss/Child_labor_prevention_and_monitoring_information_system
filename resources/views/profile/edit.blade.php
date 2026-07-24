@@ -1,79 +1,47 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div>
-            <h2 class="text-xl font-bold leading-tight text-slate-800">
-                Account Profile
-            </h2>
-
-            <p class="mt-1 text-sm text-slate-500">
-                Update your account information and password.
-            </p>
-        </div>
-    </x-slot>
-
-    <div class="min-h-[calc(100vh-130px)] bg-slate-50 py-8">
-        <div class="mx-auto max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
-
-            <section
-                class="relative overflow-hidden rounded-3xl bg-gradient-to-br
-                       from-sky-700 via-sky-600 to-cyan-500 p-8 text-white
-                       shadow-xl shadow-sky-200/60">
-
-                <div class="relative z-10">
-                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-100">
-                        CLPMIS Account
-                    </p>
-
-                    <h1 class="mt-3 text-3xl font-black">
-                        {{ auth()->user()->name }}
-                    </h1>
-
-                    <p class="mt-3 text-sm text-sky-50">
-                        {{ auth()->user()->role?->name ?? 'No assigned role' }}
-                    </p>
-                </div>
-
-                <div
-                    class="absolute -right-20 -top-20 h-64 w-64
-                           rounded-full bg-white/10">
-                </div>
-            </section>
-
-            <div class="grid gap-6 xl:grid-cols-2">
-                <section
-                    class="rounded-3xl border border-slate-200
-                           bg-white p-6 shadow-sm sm:p-8">
-
-                    <div class="max-w-xl">
-                        @include('profile.partials.update-profile-information-form')
-                    </div>
-                </section>
-
-                <section
-                    class="rounded-3xl border border-slate-200
-                           bg-white p-6 shadow-sm sm:p-8">
-
-                    <div class="max-w-xl">
-                        @include('profile.partials.update-password-form')
-                    </div>
-                </section>
+<x-dashboard-shell
+    title="Account Settings"
+    subtitle="Manage your personal account information and security credentials."
+    badge="My Account"
+>
+    <section class="grid gap-6 xl:grid-cols-[.75fr_1.25fr]">
+        <aside class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <div class="flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-950 text-2xl font-extrabold text-sky-200 shadow-panel">
+                {{ str(auth()->user()->name)->substr(0, 1)->upper() }}
             </div>
 
-            <section
-                class="rounded-3xl border border-sky-200
-                       bg-sky-50 p-6 sm:p-8">
+            <p class="mt-5 text-xs font-extrabold uppercase tracking-[0.2em] text-sky-700">CLPMIS account</p>
+            <h2 class="mt-2 text-2xl font-extrabold tracking-tight text-slate-950">{{ auth()->user()->name }}</h2>
+            <p class="mt-1 text-sm text-slate-500">{{ auth()->user()->email }}</p>
 
-                <h2 class="text-lg font-bold text-sky-900">
-                    Account Management
-                </h2>
+            <div class="mt-6 space-y-3">
+                <div class="rounded-2xl bg-slate-50 p-4">
+                    <p class="text-[10px] font-extrabold uppercase tracking-wide text-slate-400">Assigned role</p>
+                    <p class="mt-1 text-sm font-extrabold text-slate-800">{{ auth()->user()->role?->name ?? 'No assigned role' }}</p>
+                </div>
 
-                <p class="mt-2 text-sm leading-6 text-sky-800">
-                    CLPMIS accounts cannot be deleted through the personal
-                    profile page. Contact an authorized administrator when an
-                    account needs to be deactivated or its role needs to be
-                    changed.
-                </p>
+                <div class="rounded-2xl bg-sky-50 p-4">
+                    <p class="text-[10px] font-extrabold uppercase tracking-wide text-sky-600">Account status</p>
+                    <p class="mt-1 text-sm font-extrabold text-sky-900">{{ auth()->user()->is_active ? 'Active and authorized' : 'Inactive' }}</p>
+                </div>
+            </div>
+
+            <p class="mt-6 text-xs leading-6 text-slate-500">
+                Role changes, account deactivation, and access restoration must be handled by an authorized administrator.
+            </p>
+        </aside>
+
+        <div class="space-y-6">
+            <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
+                <div class="max-w-2xl">
+                    @include('profile.partials.update-profile-information-form')
+                </div>
+            </section>
+
+            <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
+                <div class="max-w-2xl">
+                    @include('profile.partials.update-password-form')
+                </div>
             </section>
         </div>
-    </div>
-</x-app-layout>
+    </section>
+</x-dashboard-shell>

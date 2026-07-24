@@ -1,0 +1,40 @@
+{
+  "phase": "8A",
+  "module": "Automated Testing and Quality Assurance",
+  "direct_project_overlay": true,
+  "created_files": [
+    "phpunit.clpmis.xml",
+    ".env.testing.example",
+    "database/testing/create_clpmis_testing_database.sql",
+    "tests/Support/CreatesClpmisRecords.php",
+    "app/Services/QualityAssurance/QualityAssuranceService.php",
+    "app/Console/Commands/RunClpmisQualityAssurance.php",
+    "app/Http/Controllers/QualityAssuranceController.php",
+    "routes/quality-assurance.php",
+    "app/Providers/QualityAssuranceServiceProvider.php",
+    "resources/views/quality-assurance/index.blade.php",
+    "tests/Feature/CLPMIS/CoreSchemaTest.php",
+    "tests/Feature/CLPMIS/AuthenticationSecurityTest.php",
+    "tests/Feature/CLPMIS/AuthorizationMatrixTest.php",
+    "tests/Feature/CLPMIS/ProfileScopeTest.php",
+    "tests/Feature/CLPMIS/NotificationPrivacyTest.php",
+    "tests/Feature/CLPMIS/DataProtectionTest.php",
+    "tests/Feature/CLPMIS/ReportsSmokeTest.php",
+    "tests/Feature/CLPMIS/AdministrationSmokeTest.php",
+    "tests/Unit/CLPMIS/SystemNotificationTest.php",
+    "tests/Unit/CLPMIS/SecurityConfigurationTest.php",
+    "docs/testing/TESTING_STRATEGY.md",
+    "docs/testing/QA_EXECUTION_CHECKLIST.md",
+    "README_PHASE_8A.md"
+  ],
+  "modified_files": [
+    "bootstrap/providers.php",
+    "database/factories/UserFactory.php",
+    "app/View/Components/WorkspaceShell.php"
+  ],
+  "migration_required": false,
+  "dedicated_test_database": "CLPMIS_testing",
+  "direct_test_url": "/quality-assurance",
+  "artisan_command": "php artisan clpmis:qa",
+  "remaining_phases_after_install": 2
+}
