@@ -218,7 +218,7 @@
             ) }}"
         >
             Back
-        </a>  
+        </a>
     </div>
 
     @include(

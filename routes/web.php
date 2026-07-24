@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuditEvaluationController;
 use App\Http\Controllers\AuditScheduleController;
 use App\Http\Controllers\ChildLaborer\DocumentController;
 use App\Http\Controllers\ChildLaborer\HealthInformationController;
@@ -76,7 +77,69 @@ Route::middleware('auth')->group(function (): void {
             )->name('barangays');
         });
 
+    /*
+    |--------------------------------------------------------------------------
+    | Reports
+    |--------------------------------------------------------------------------
+    */
 
+    Route::prefix('reports')
+        ->name('reports.')
+        ->group(function (): void {
+            Route::get(
+                '/child-laborers',
+                [
+                    ChildLaborerReportController::class,
+                    'index',
+                ]
+            )->name(
+                    'child-laborers.index'
+                );
+
+            /*
+             * Static routes must be placed before the dynamic
+             * {childLaborer} route.
+             */
+            Route::get(
+                '/child-laborers/export/csv',
+                [
+                    ChildLaborerReportController::class,
+                    'exportCsv',
+                ]
+            )->name(
+                    'child-laborers.export.csv'
+                );
+
+            Route::get(
+                '/child-laborers/print',
+                [
+                    ChildLaborerReportController::class,
+                    'printMasterList',
+                ]
+            )->name(
+                    'child-laborers.print'
+                );
+
+            Route::get(
+                '/child-laborers/{childLaborer}/print',
+                [
+                    ChildLaborerReportController::class,
+                    'printProfile',
+                ]
+            )->name(
+                    'child-laborers.profile.print'
+                );
+
+            Route::get(
+                '/child-laborers/{childLaborer}',
+                [
+                    ChildLaborerReportController::class,
+                    'profile',
+                ]
+            )->name(
+                    'child-laborers.profile'
+                );
+        });
     /*
 |--------------------------------------------------------------------------
 | Audit schedules

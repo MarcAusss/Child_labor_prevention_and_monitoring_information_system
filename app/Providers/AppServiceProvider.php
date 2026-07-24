@@ -43,6 +43,37 @@ class AppServiceProvider extends ServiceProvider
             ActivityLogPolicy::class
         );
 
+        Gate::define(
+            'view-reports',
+            fn(User $user): bool =>
+            $user->isSuperAdmin()
+            || $user->isAdmin()
+            || $user->isViewer()
+        );
+
+        Gate::define(
+            'generate-reports',
+            fn(User $user): bool =>
+            $user->isSuperAdmin()
+            || $user->isAdmin()
+        );
+
+        Gate::define(
+            'export-reports',
+            fn(User $user): bool =>
+            $user->isSuperAdmin()
+            || $user->isAdmin()
+            || $user->isViewer()
+        );
+
+        Gate::define(
+            'print-reports',
+            fn(User $user): bool =>
+            $user->isSuperAdmin()
+            || $user->isAdmin()
+            || $user->isViewer()
+        );
+
         $auditedModels = [
             User::class,
             ChildLaborer::class,

@@ -267,8 +267,7 @@
                     </p>
                 </div>
 
-                <a href="{{ route('child-laborers.parent-guardians.index', $childLaborer) }}"
-                    class="rounded-xl bg-sky-50 px-4 py-2
+                <a href="{{ route('child-laborers.parent-guardians.index', $childLaborer) }}" class="rounded-xl bg-sky-50 px-4 py-2
                        text-xs font-bold text-sky-700">
                     @can('update', $childLaborer)
                         Manage
@@ -280,12 +279,11 @@
 
             @if ($childLaborer->primaryGuardian)
                 <div class="mt-5 rounded-2xl border border-emerald-200
-                       bg-emerald-50 p-5">
+                           bg-emerald-50 p-5">
                     <div class="flex items-center justify-between gap-3">
                         <div>
-                            <p
-                                class="text-xs font-bold uppercase
-                                   tracking-wide text-emerald-700">
+                            <p class="text-xs font-bold uppercase
+                                       tracking-wide text-emerald-700">
                                 Primary Contact
                             </p>
 
@@ -298,10 +296,9 @@
                             </p>
                         </div>
 
-                        <span
-                            class="rounded-full bg-emerald-100
-                               px-3 py-1 text-xs font-bold
-                               text-emerald-700">
+                        <span class="rounded-full bg-emerald-100
+                                   px-3 py-1 text-xs font-bold
+                                   text-emerald-700">
                             Primary
                         </span>
                     </div>
@@ -313,7 +310,7 @@
                 </div>
             @else
                 <p class="mt-5 rounded-xl bg-slate-50 px-4
-                       py-5 text-sm text-slate-500">
+                           py-5 text-sm text-slate-500">
                     No parent or guardian has been added.
                 </p>
             @endif
@@ -341,8 +338,7 @@
                     </p>
                 </div>
 
-                <a href="{{ route('child-laborers.household-members.index', $childLaborer) }}"
-                    class="rounded-xl bg-sky-50 px-4 py-2
+                <a href="{{ route('child-laborers.household-members.index', $childLaborer) }}" class="rounded-xl bg-sky-50 px-4 py-2
                        text-xs font-bold text-sky-700">
                     @can('update', $childLaborer)
                         Manage
@@ -355,10 +351,9 @@
             @if ($childLaborer->householdMembers->isNotEmpty())
                 <div class="mt-5 space-y-3">
                     @foreach ($childLaborer->householdMembers->take(3) as $householdMember)
-                        <div
-                            class="flex items-center justify-between
-                               gap-4 rounded-xl bg-slate-50
-                               px-4 py-3">
+                        <div class="flex items-center justify-between
+                                       gap-4 rounded-xl bg-slate-50
+                                       px-4 py-3">
                             <div>
                                 <p class="font-bold text-slate-800">
                                     {{ $householdMember->full_name }}
@@ -385,7 +380,7 @@
                 @endif
             @else
                 <p class="mt-5 rounded-xl bg-slate-50 px-4
-                       py-5 text-sm text-slate-500">
+                           py-5 text-sm text-slate-500">
                     No household members have been added.
                 </p>
             @endif
@@ -408,8 +403,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('child-laborers.education-records.index', $childLaborer) }}"
-                class="rounded-xl bg-sky-50 px-4 py-2
+            <a href="{{ route('child-laborers.education-records.index', $childLaborer) }}" class="rounded-xl bg-sky-50 px-4 py-2
                    text-center text-xs font-bold text-sky-700">
                 @can('update', $childLaborer)
                     Manage Education
@@ -433,13 +427,12 @@
             @endphp
 
             <div class="mt-5 rounded-2xl border border-slate-200
-                   bg-slate-50 p-5">
+                       bg-slate-50 p-5">
                 <div class="flex flex-col gap-4 sm:flex-row
-                       sm:items-start sm:justify-between">
+                           sm:items-start sm:justify-between">
                     <div>
-                        <p
-                            class="text-xs font-bold uppercase
-                               tracking-wide text-slate-400">
+                        <p class="text-xs font-bold uppercase
+                                   tracking-wide text-slate-400">
                             Current Education Situation
                         </p>
 
@@ -457,20 +450,18 @@
                         </p>
                     </div>
 
-                    <span
-                        class="inline-flex self-start rounded-full
-                           px-3 py-1 text-xs font-bold
-                           {{ $educationStatusClasses }}">
+                    <span class="inline-flex self-start rounded-full
+                               px-3 py-1 text-xs font-bold
+                               {{ $educationStatusClasses }}">
                         {{ $childLaborer->currentEducation->enrollment_status }}
                     </span>
                 </div>
 
                 @if ($childLaborer->currentEducation->reason_not_attending)
-                    <div
-                        class="mt-5 rounded-xl border border-amber-200
-                           bg-amber-50 px-4 py-3">
+                    <div class="mt-5 rounded-xl border border-amber-200
+                                   bg-amber-50 px-4 py-3">
                         <p class="text-xs font-bold uppercase
-                               text-amber-700">
+                                       text-amber-700">
                             Reason for Not Attending
                         </p>
 
@@ -482,7 +473,7 @@
             </div>
         @else
             <p class="mt-5 rounded-xl bg-slate-50 px-4
-                   py-5 text-sm text-slate-500">
+                       py-5 text-sm text-slate-500">
                 No education information has been added.
             </p>
         @endif
@@ -512,8 +503,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('child-laborers.employment-records.index', $childLaborer) }}"
-                class="rounded-xl bg-sky-50 px-4 py-2
+            <a href="{{ route('child-laborers.employment-records.index', $childLaborer) }}" class="rounded-xl bg-sky-50 px-4 py-2
                    text-center text-xs font-bold text-sky-700">
                 @can('update', $childLaborer)
                     Manage Employment
@@ -525,13 +515,12 @@
 
         @if ($childLaborer->currentEmployment)
             <div class="mt-5 rounded-2xl border
-                   border-slate-200 bg-slate-50 p-5">
+                       border-slate-200 bg-slate-50 p-5">
                 <div class="flex flex-col gap-4 sm:flex-row
-                       sm:items-start sm:justify-between">
+                           sm:items-start sm:justify-between">
                     <div>
-                        <p
-                            class="text-xs font-bold uppercase
-                               tracking-wide text-slate-400">
+                        <p class="text-xs font-bold uppercase
+                                   tracking-wide text-slate-400">
                             Current Work
                         </p>
 
@@ -550,10 +539,9 @@
                         </p>
                     </div>
 
-                    <span
-                        class="inline-flex self-start rounded-full
-                           bg-emerald-100 px-3 py-1 text-xs
-                           font-bold text-emerald-700">
+                    <span class="inline-flex self-start rounded-full
+                               bg-emerald-100 px-3 py-1 text-xs
+                               font-bold text-emerald-700">
                         Current
                     </span>
                 </div>
@@ -601,7 +589,7 @@
             </div>
         @else
             <p class="mt-5 rounded-xl bg-slate-50
-                   px-4 py-5 text-sm text-slate-500">
+                       px-4 py-5 text-sm text-slate-500">
                 No employment information has been added.
             </p>
         @endif
@@ -626,9 +614,9 @@
             $unsafeHazardCount = $allWorkHazards
                 ->filter(
                     fn($hazard) => $hazard->heavy_work ||
-                        $hazard->long_hours ||
-                        $hazard->night_work ||
-                        $hazard->unsafe_conditions,
+                    $hazard->long_hours ||
+                    $hazard->night_work ||
+                    $hazard->unsafe_conditions,
                 )
                 ->count();
 
@@ -651,8 +639,8 @@
             @if ($childLaborer->currentEmployment)
                 <a href="{{ route('child-laborers.work-hazards.index', [$childLaborer, $childLaborer->currentEmployment]) }}"
                     class="rounded-xl bg-amber-50 px-4 py-2
-                       text-center text-xs font-bold
-                       text-amber-700">
+                           text-center text-xs font-bold
+                           text-amber-700">
                     @can('update', $childLaborer)
                         Manage Current Hazards
                     @else
@@ -660,10 +648,9 @@
                     @endcan
                 </a>
             @else
-                <a href="{{ route('child-laborers.employment-records.index', $childLaborer) }}"
-                    class="rounded-xl bg-sky-50 px-4 py-2
-                       text-center text-xs font-bold
-                       text-sky-700">
+                <a href="{{ route('child-laborers.employment-records.index', $childLaborer) }}" class="rounded-xl bg-sky-50 px-4 py-2
+                           text-center text-xs font-bold
+                           text-sky-700">
                     View Employment
                 </a>
             @endif
@@ -710,53 +697,48 @@
         @if ($currentWorkHazards->isNotEmpty())
             <div class="mt-5 space-y-3">
                 <p class="text-xs font-bold uppercase
-                       tracking-wide text-slate-400">
+                           tracking-wide text-slate-400">
                     Current Employment Hazards
                 </p>
 
                 @foreach ($currentWorkHazards->take(3) as $workHazard)
-                    <div
-                        class="flex flex-col gap-3 rounded-2xl
-                           border border-slate-200 p-4
-                           sm:flex-row sm:items-center
-                           sm:justify-between">
+                    <div class="flex flex-col gap-3 rounded-2xl
+                                   border border-slate-200 p-4
+                                   sm:flex-row sm:items-center
+                                   sm:justify-between">
                         <div>
                             <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="rounded-full bg-red-100
-                                       px-3 py-1 text-xs
-                                       font-bold text-red-700">
+                                <span class="rounded-full bg-red-100
+                                               px-3 py-1 text-xs
+                                               font-bold text-red-700">
                                     {{ $workHazard->hazard_type }}
                                 </span>
 
-                                <span
-                                    class="rounded-full bg-slate-100
-                                       px-3 py-1 text-xs
-                                       font-bold text-slate-600">
+                                <span class="rounded-full bg-slate-100
+                                               px-3 py-1 text-xs
+                                               font-bold text-slate-600">
                                     {{ $workHazard->exposure_frequency }}
                                 </span>
                             </div>
 
                             <p class="mt-3 text-sm leading-6
-                                   text-slate-700">
+                                           text-slate-700">
                                 {{ $workHazard->hazard_description }}
                             </p>
                         </div>
 
                         @if ($workHazard->ppe_provided)
-                            <span
-                                class="shrink-0 rounded-full
-                                   bg-emerald-100 px-3 py-1
-                                   text-xs font-bold
-                                   text-emerald-700">
+                            <span class="shrink-0 rounded-full
+                                               bg-emerald-100 px-3 py-1
+                                               text-xs font-bold
+                                               text-emerald-700">
                                 PPE Provided
                             </span>
                         @else
-                            <span
-                                class="shrink-0 rounded-full
-                                   bg-amber-100 px-3 py-1
-                                   text-xs font-bold
-                                   text-amber-700">
+                            <span class="shrink-0 rounded-full
+                                               bg-amber-100 px-3 py-1
+                                               text-xs font-bold
+                                               text-amber-700">
                                 No PPE
                             </span>
                         @endif
@@ -765,13 +747,13 @@
             </div>
         @elseif ($childLaborer->currentEmployment)
             <p class="mt-5 rounded-xl bg-slate-50
-                   px-4 py-5 text-sm text-slate-500">
+                       px-4 py-5 text-sm text-slate-500">
                 No hazard has been recorded for the current
                 employment.
             </p>
         @else
             <p class="mt-5 rounded-xl bg-slate-50
-                   px-4 py-5 text-sm text-slate-500">
+                       px-4 py-5 text-sm text-slate-500">
                 Add an employment record before documenting
                 work hazards.
             </p>
@@ -781,7 +763,7 @@
     @can('viewHealth', $childLaborer)
         {{-- Health information --}}
         <section class="rounded-3xl border border-slate-200
-               bg-white p-6 shadow-sm">
+                   bg-white p-6 shadow-sm">
             @php
                 $currentHealth = $childLaborer->currentHealthInformation;
 
@@ -789,18 +771,17 @@
             @endphp
 
             <div class="flex flex-col gap-4 sm:flex-row
-                   sm:items-start sm:justify-between">
+                       sm:items-start sm:justify-between">
                 <div>
                     <div class="flex flex-wrap items-center gap-2">
                         <h2 class="text-lg font-bold text-slate-800">
                             Health Information
                         </h2>
 
-                        <span
-                            class="rounded-full bg-amber-100
-                               px-3 py-1 text-[10px]
-                               font-bold uppercase
-                               text-amber-700">
+                        <span class="rounded-full bg-amber-100
+                                   px-3 py-1 text-[10px]
+                                   font-bold uppercase
+                                   text-amber-700">
                             Restricted
                         </span>
                     </div>
@@ -812,10 +793,9 @@
                     </p>
                 </div>
 
-                <a href="{{ route('child-laborers.health-information.index', $childLaborer) }}"
-                    class="rounded-xl bg-sky-50 px-4 py-2
-                       text-center text-xs font-bold
-                       text-sky-700">
+                <a href="{{ route('child-laborers.health-information.index', $childLaborer) }}" class="rounded-xl bg-sky-50 px-4 py-2
+                           text-center text-xs font-bold
+                           text-sky-700">
                     @can('updateHealth', $childLaborer)
                         Manage Health Information
                     @else
@@ -826,19 +806,17 @@
 
             @if ($currentHealth)
                 <div class="mt-5 rounded-2xl border
-                       border-slate-200 bg-slate-50 p-5">
-                    <div
-                        class="flex flex-col gap-4 sm:flex-row
-                           sm:items-start sm:justify-between">
+                               border-slate-200 bg-slate-50 p-5">
+                    <div class="flex flex-col gap-4 sm:flex-row
+                                   sm:items-start sm:justify-between">
                         <div>
-                            <p
-                                class="text-xs font-bold uppercase
-                                   tracking-wide text-slate-400">
+                            <p class="text-xs font-bold uppercase
+                                           tracking-wide text-slate-400">
                                 Current Health Assessment
                             </p>
 
                             <p class="mt-2 text-lg font-bold
-                                   text-slate-800">
+                                           text-slate-800">
                                 {{ $currentHealth->health_condition ?: 'No specific health condition recorded' }}
                             </p>
 
@@ -849,76 +827,73 @@
                         </div>
 
                         @if ($healthConcernCount > 0)
-                            <span
-                                class="inline-flex self-start
-                                   rounded-full bg-amber-100
-                                   px-3 py-1 text-xs font-bold
-                                   text-amber-700">
+                            <span class="inline-flex self-start
+                                               rounded-full bg-amber-100
+                                               px-3 py-1 text-xs font-bold
+                                               text-amber-700">
                                 {{ $healthConcernCount }}
                                 concern indicator(s)
                             </span>
                         @else
-                            <span
-                                class="inline-flex self-start
-                                   rounded-full bg-emerald-100
-                                   px-3 py-1 text-xs font-bold
-                                   text-emerald-700">
+                            <span class="inline-flex self-start
+                                               rounded-full bg-emerald-100
+                                               px-3 py-1 text-xs font-bold
+                                               text-emerald-700">
                                 No concerns recorded
                             </span>
                         @endif
                     </div>
 
                     <div class="mt-5 grid gap-4
-                           sm:grid-cols-3">
+                                   sm:grid-cols-3">
                         <div>
                             <p class="text-xs font-bold uppercase
-                                   text-slate-400">
+                                           text-slate-400">
                                 Disability
                             </p>
 
                             <p class="mt-1 text-sm font-semibold
-                                   text-slate-700">
+                                           text-slate-700">
                                 {{ $currentHealth->has_disability ? 'Reported' : 'Not reported' }}
                             </p>
                         </div>
 
                         <div>
                             <p class="text-xs font-bold uppercase
-                                   text-slate-400">
+                                           text-slate-400">
                                 Current Complaints
                             </p>
 
                             <p class="mt-1 text-sm font-semibold
-                                   text-slate-700">
+                                           text-slate-700">
                                 {{ $currentHealth->current_complaints ?: 'None recorded' }}
                             </p>
                         </div>
 
                         <div>
                             <p class="text-xs font-bold uppercase
-                                   text-slate-400">
+                                           text-slate-400">
                                 Health Facility
                             </p>
 
                             <p class="mt-1 text-sm font-semibold
-                                   text-slate-700">
+                                           text-slate-700">
                                 {{ $currentHealth->health_facility ?: 'Not recorded' }}
                             </p>
                         </div>
                     </div>
 
                     @if ($currentHealth->mental_health_concerns)
-                        <div
-                            class="mt-5 rounded-xl border
-                               border-violet-200
-                               bg-violet-50 px-4 py-3">
+                        <div class="mt-5 rounded-xl border
+                                           border-violet-200
+                                           bg-violet-50 px-4 py-3">
                             <p class="text-xs font-bold uppercase
-                                   text-violet-700">
+                                               text-violet-700">
                                 Mental-Health or Psychosocial Concerns
                             </p>
 
                             <p class="mt-1 text-sm leading-6
-                                   text-violet-800">
+                                               text-violet-800">
                                 {{ $currentHealth->mental_health_concerns }}
                             </p>
                         </div>
@@ -926,7 +901,7 @@
                 </div>
             @else
                 <p class="mt-5 rounded-xl bg-slate-50
-                       px-4 py-5 text-sm text-slate-500">
+                               px-4 py-5 text-sm text-slate-500">
                     No health information has been added.
                 </p>
             @endif
@@ -971,8 +946,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('child-laborers.interventions.index', $childLaborer) }}"
-                class="rounded-xl bg-sky-50 px-4 py-2
+            <a href="{{ route('child-laborers.interventions.index', $childLaborer) }}" class="rounded-xl bg-sky-50 px-4 py-2
                    text-center text-xs font-bold
                    text-sky-700">
                 @can('manageInterventions', $childLaborer)
@@ -1054,18 +1028,17 @@
             @endphp
 
             <div class="mt-5 rounded-2xl border
-                   border-slate-200 bg-slate-50 p-5">
+                       border-slate-200 bg-slate-50 p-5">
                 <div class="flex flex-col gap-4 sm:flex-row
-                       sm:items-start sm:justify-between">
+                           sm:items-start sm:justify-between">
                     <div>
-                        <p
-                            class="text-xs font-bold uppercase
-                               tracking-wide text-slate-400">
+                        <p class="text-xs font-bold uppercase
+                                   tracking-wide text-slate-400">
                             Latest Intervention
                         </p>
 
                         <p class="mt-2 text-lg font-bold
-                               text-slate-800">
+                                   text-slate-800">
                             {{ $latestIntervention->intervention_type }}
                         </p>
 
@@ -1074,22 +1047,21 @@
                         </p>
                     </div>
 
-                    <span
-                        class="inline-flex self-start
-                           rounded-full px-3 py-1
-                           text-xs font-bold
-                           {{ $latestStatusClasses }}">
+                    <span class="inline-flex self-start
+                               rounded-full px-3 py-1
+                               text-xs font-bold
+                               {{ $latestStatusClasses }}">
                         {{ $latestIntervention->status }}
                     </span>
                 </div>
 
                 <p class="mt-4 text-sm leading-7
-                       text-slate-700">
+                           text-slate-700">
                     {{ $latestIntervention->description }}
                 </p>
 
                 <div class="mt-4 flex flex-wrap gap-x-6
-                       gap-y-2 text-xs text-slate-500">
+                           gap-y-2 text-xs text-slate-500">
                     <span>
                         Date provided:
                         {{ $latestIntervention->date_provided?->format('F d, Y') ?? 'Not yet provided' }}
@@ -1107,7 +1079,7 @@
             </div>
         @else
             <p class="mt-5 rounded-xl bg-slate-50
-                   px-4 py-5 text-sm text-slate-500">
+                       px-4 py-5 text-sm text-slate-500">
                 No intervention or assistance has been recorded.
             </p>
         @endif
@@ -1129,8 +1101,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('child-laborers.documents.index', $childLaborer) }}"
-                class="rounded-xl bg-sky-50 px-4 py-2
+            <a href="{{ route('child-laborers.documents.index', $childLaborer) }}" class="rounded-xl bg-sky-50 px-4 py-2
                    text-center text-xs font-bold
                    text-sky-700">
                 @can('uploadDocuments', $childLaborer)
@@ -1156,33 +1127,31 @@
         @if ($latestDocuments->isNotEmpty())
             <div class="mt-5 space-y-3">
                 <p class="text-xs font-bold uppercase
-                       tracking-wide text-slate-400">
+                           tracking-wide text-slate-400">
                     Latest Documents
                 </p>
 
                 @foreach ($latestDocuments as $document)
-                    <div
-                        class="flex flex-col gap-3
-                           rounded-2xl border
-                           border-slate-200 p-4
-                           sm:flex-row sm:items-center
-                           sm:justify-between">
+                    <div class="flex flex-col gap-3
+                                   rounded-2xl border
+                                   border-slate-200 p-4
+                                   sm:flex-row sm:items-center
+                                   sm:justify-between">
                         <div class="min-w-0">
                             <div class="flex flex-wrap
-                                   items-center gap-2">
+                                           items-center gap-2">
                                 <p class="break-all font-bold
-                                       text-slate-800">
+                                               text-slate-800">
                                     {{ $document->original_name }}
                                 </p>
 
                                 @if ($document->is_confidential)
-                                    <span
-                                        class="rounded-full
-                                           bg-amber-100
-                                           px-2.5 py-1
-                                           text-[10px]
-                                           font-bold uppercase
-                                           text-amber-700">
+                                    <span class="rounded-full
+                                                       bg-amber-100
+                                                       px-2.5 py-1
+                                                       text-[10px]
+                                                       font-bold uppercase
+                                                       text-amber-700">
                                         Confidential
                                     </span>
                                 @endif
@@ -1197,11 +1166,10 @@
                             </p>
                         </div>
 
-                        <a href="{{ route('child-laborers.documents.download', [$childLaborer, $document]) }}"
-                            class="shrink-0 rounded-xl
-                               bg-sky-600 px-4 py-2
-                               text-center text-xs
-                               font-bold text-white">
+                        <a href="{{ route('child-laborers.documents.download', [$childLaborer, $document]) }}" class="shrink-0 rounded-xl
+                                       bg-sky-600 px-4 py-2
+                                       text-center text-xs
+                                       font-bold text-white">
                             Download
                         </a>
                     </div>
@@ -1209,7 +1177,7 @@
             </div>
         @else
             <p class="mt-5 rounded-xl bg-slate-50
-                   px-4 py-5 text-sm text-slate-500">
+                       px-4 py-5 text-sm text-slate-500">
                 No document is available for this profile.
             </p>
         @endif
@@ -1217,9 +1185,9 @@
 
     @can('viewActivity', $childLaborer)
         <section class="rounded-3xl border border-slate-200
-               bg-white p-6 shadow-sm">
+                   bg-white p-6 shadow-sm">
             <div class="flex flex-col gap-4 sm:flex-row
-                   sm:items-start sm:justify-between">
+                       sm:items-start sm:justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-slate-800">
                         Profile Activity
@@ -1231,10 +1199,9 @@
                     </p>
                 </div>
 
-                <a href="{{ route('child-laborers.activity-logs.index', $childLaborer) }}"
-                    class="rounded-xl bg-sky-50 px-4 py-2
-                       text-center text-xs font-bold
-                       text-sky-700">
+                <a href="{{ route('child-laborers.activity-logs.index', $childLaborer) }}" class="rounded-xl bg-sky-50 px-4 py-2
+                           text-center text-xs font-bold
+                           text-sky-700">
                     View Complete History
                 </a>
             </div>
@@ -1243,39 +1210,34 @@
                 <div class="mt-5 divide-y divide-slate-200">
                     @foreach ($recentActivityLogs as $activityLog)
                         <article class="py-4 first:pt-0 last:pb-0">
-                            <div
-                                class="flex flex-col gap-3
-                                   sm:flex-row sm:items-start
-                                   sm:justify-between">
+                            <div class="flex flex-col gap-3
+                                               sm:flex-row sm:items-start
+                                               sm:justify-between">
                                 <div>
-                                    <div
-                                        class="flex flex-wrap
-                                           items-center gap-2">
-                                        <span
-                                            class="rounded-full
-                                               bg-sky-100
-                                               px-3 py-1
-                                               text-xs font-bold
-                                               text-sky-700">
+                                    <div class="flex flex-wrap
+                                                       items-center gap-2">
+                                        <span class="rounded-full
+                                                           bg-sky-100
+                                                           px-3 py-1
+                                                           text-xs font-bold
+                                                           text-sky-700">
                                             {{ $activityLog->action_label }}
                                         </span>
 
-                                        <span
-                                            class="text-xs
-                                               text-slate-400">
+                                        <span class="text-xs
+                                                           text-slate-400">
                                             {{ $activityLog->entity_label }}
                                         </span>
                                     </div>
 
-                                    <p
-                                        class="mt-2 text-sm
-                                           font-semibold
-                                           text-slate-700">
+                                    <p class="mt-2 text-sm
+                                                       font-semibold
+                                                       text-slate-700">
                                         {{ $activityLog->description }}
                                     </p>
 
                                     <p class="mt-1 text-xs
-                                           text-slate-500">
+                                                       text-slate-500">
                                         {{ $activityLog->actor_display }}
 
                                         @if ($activityLog->role_name)
@@ -1286,7 +1248,7 @@
                                 </div>
 
                                 <p class="shrink-0 text-xs
-                                       text-slate-400">
+                                                   text-slate-400">
                                     {{ $activityLog->created_at->format('M d, Y h:i A') }}
                                 </p>
                             </div>
@@ -1295,7 +1257,7 @@
                 </div>
             @else
                 <p class="mt-5 rounded-xl bg-slate-50
-                       px-4 py-5 text-sm text-slate-500">
+                               px-4 py-5 text-sm text-slate-500">
                     No activity has been recorded for this profile.
                 </p>
             @endif
@@ -1304,9 +1266,9 @@
 
     @can('viewAny', \App\Models\AuditSchedule::class)
         <section class="rounded-3xl border border-slate-200
-               bg-white p-6 shadow-sm">
+                   bg-white p-6 shadow-sm">
             <div class="flex flex-col gap-4 sm:flex-row
-                   sm:items-start sm:justify-between">
+                       sm:items-start sm:justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-slate-800">
                         Audit Schedules and Evaluations
@@ -1320,29 +1282,27 @@
 
                 <div class="flex flex-wrap gap-2">
                     @if (in_array($childLaborer->status, ['Submitted', 'Approved'], true))
-                        <a href="{{ route('child-laborers.audit-schedules.create', $childLaborer) }}"
-                            class="rounded-xl bg-sky-600
-                               px-4 py-2 text-center
-                               text-xs font-bold text-white">
+                        <a href="{{ route('child-laborers.audit-schedules.create', $childLaborer) }}" class="rounded-xl bg-sky-600
+                                       px-4 py-2 text-center
+                                       text-xs font-bold text-white">
                             Create Audit Schedule
                         </a>
                     @endif
 
                     <a href="{{ route('audit-schedules.index', [
-                        'search' => $childLaborer->profile_number,
-                    ]) }}"
-                        class="rounded-xl bg-sky-50
-                           px-4 py-2 text-center
-                           text-xs font-bold text-sky-700">
+            'search' => $childLaborer->profile_number,
+        ]) }}" class="rounded-xl bg-sky-50
+                               px-4 py-2 text-center
+                               text-xs font-bold text-sky-700">
                         View All Schedules
                     </a>
                 </div>
             </div>
 
             <div class="mt-5 rounded-2xl border
-                   border-slate-200 bg-slate-50 p-5">
+                       border-slate-200 bg-slate-50 p-5">
                 <p class="text-xs font-bold uppercase
-                       tracking-wide text-slate-400">
+                           tracking-wide text-slate-400">
                     Total Audit Schedules
                 </p>
 
@@ -1368,19 +1328,17 @@
                             };
                         @endphp
 
-                        <div
-                            class="flex flex-col gap-4
-                               rounded-2xl border
-                               border-slate-200 p-4
-                               sm:flex-row sm:items-center
-                               sm:justify-between">
+                        <div class="flex flex-col gap-4
+                                           rounded-2xl border
+                                           border-slate-200 p-4
+                                           sm:flex-row sm:items-center
+                                           sm:justify-between">
                             <div>
                                 <div class="flex flex-wrap
-                                       items-center gap-2">
-                                    <span
-                                        class="rounded-full px-3 py-1
-                                           text-xs font-bold
-                                           {{ $auditStatusClasses }}">
+                                                   items-center gap-2">
+                                    <span class="rounded-full px-3 py-1
+                                                       text-xs font-bold
+                                                       {{ $auditStatusClasses }}">
                                         {{ $auditSchedule->status }}
                                     </span>
 
@@ -1390,22 +1348,21 @@
                                 </div>
 
                                 <p class="mt-2 text-sm font-bold
-                                       text-slate-700">
+                                                   text-slate-700">
                                     Assigned to
                                     {{ $auditSchedule->assignedAdministrator->name }}
                                 </p>
 
                                 <p class="mt-1 text-xs
-                                       text-slate-500">
+                                                   text-slate-500">
                                     {{ $auditSchedule->location ?: 'No location provided' }}
                                 </p>
                             </div>
 
-                            <a href="{{ route('audit-schedules.show', $auditSchedule) }}"
-                                class="shrink-0 rounded-xl
-                                   bg-sky-50 px-4 py-2
-                                   text-center text-xs
-                                   font-bold text-sky-700">
+                            <a href="{{ route('audit-schedules.show', $auditSchedule) }}" class="shrink-0 rounded-xl
+                                               bg-sky-50 px-4 py-2
+                                               text-center text-xs
+                                               font-bold text-sky-700">
                                 Open Audit
                             </a>
                         </div>
@@ -1413,7 +1370,7 @@
                 </div>
             @else
                 <p class="mt-5 rounded-xl bg-slate-50
-                       px-4 py-5 text-sm text-slate-500">
+                               px-4 py-5 text-sm text-slate-500">
                     No audit schedule has been created for this profile.
                 </p>
             @endif
@@ -1449,12 +1406,22 @@
                 </a>
             @endcan
             @can('view-reports')
-                <a href="{{ route('reports.child-laborers.profile', $childLaborer) }}"
-                    class="rounded-xl bg-sky-50
-               px-4 py-2 text-sm font-bold
-               text-sky-700">
+                <a href="{{ route('reports.child-laborers.profile', $childLaborer) }}" class="rounded-xl bg-sky-50
+                   px-4 py-2 text-sm font-bold
+                   text-sky-700">
                     Profile Report
                 </a>
+            @endcan
+
+            @can('view-reports')
+                        <a href="{{ route(
+                    'reports.child-laborers.profile',
+                    $childLaborer
+                ) }}" class="rounded-xl bg-sky-50
+                           px-4 py-2 text-sm font-bold
+                           text-sky-700">
+                            Profile Report
+                        </a>
             @endcan
 
             @can('submit', $childLaborer)
@@ -1501,7 +1468,8 @@
                     Reason for returning the profile
                 </label>
 
-                <textarea name="return_reason" rows="3" required class="mt-2 block w-full rounded-xl border-amber-300">{{ old('return_reason') }}</textarea>
+                <textarea name="return_reason" rows="3" required
+                    class="mt-2 block w-full rounded-xl border-amber-300">{{ old('return_reason') }}</textarea>
 
                 <button class="mt-3 rounded-xl bg-amber-600 px-4 py-2 text-sm font-bold text-white">
                     Return for Correction
@@ -1519,7 +1487,8 @@
                     Archive reason
                 </label>
 
-                <textarea name="archive_reason" rows="2" class="mt-2 block w-full rounded-xl border-red-300">{{ old('archive_reason') }}</textarea>
+                <textarea name="archive_reason" rows="2"
+                    class="mt-2 block w-full rounded-xl border-red-300">{{ old('archive_reason') }}</textarea>
 
                 <button class="mt-3 rounded-xl bg-red-600 px-4 py-2 text-sm font-bold text-white">
                     Archive Profile
