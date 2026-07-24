@@ -31,15 +31,7 @@ class WorkspaceShell extends Component
     }
 
     /**
-     * @return array<int, array{
-     *     label:string,
-     *     links:array<int, array{
-     *         label:string,
-     *         route:string,
-     *         pattern:string,
-     *         icon:string
-     *     }>
-     * }>
+     * @return array<int, array<string, mixed>>
      */
     private function navigation(
         mixed $user
@@ -49,47 +41,26 @@ class WorkspaceShell extends Component
                 'label' => 'Workspace',
 
                 'links' => [
-                    [
-                        'label' =>
-                            'Dashboard',
+                    $this->link(
+                        'Dashboard',
+                        'workspace.dashboard',
+                        'workspace.dashboard',
+                        'dashboard'
+                    ),
 
-                        'route' =>
-                            'workspace.dashboard',
+                    $this->link(
+                        'Child Profiles',
+                        'child-laborers.index',
+                        'child-laborers.*',
+                        'profiles'
+                    ),
 
-                        'pattern' =>
-                            'workspace.dashboard',
-
-                        'icon' =>
-                            'dashboard',
-                    ],
-
-                    [
-                        'label' =>
-                            'Child Profiles',
-
-                        'route' =>
-                            'child-laborers.index',
-
-                        'pattern' =>
-                            'child-laborers.*',
-
-                        'icon' =>
-                            'profiles',
-                    ],
-
-                    [
-                        'label' =>
-                            'Notifications',
-
-                        'route' =>
-                            'notifications.index',
-
-                        'pattern' =>
-                            'notifications.*',
-
-                        'icon' =>
-                            'bell',
-                    ],
+                    $this->link(
+                        'Notifications',
+                        'notifications.index',
+                        'notifications.*',
+                        'bell'
+                    ),
                 ],
             ],
 
@@ -97,19 +68,12 @@ class WorkspaceShell extends Component
                 'label' => 'Operations',
 
                 'links' => [
-                    [
-                        'label' =>
-                            'Audit Schedules',
-
-                        'route' =>
-                            'audit-schedules.index',
-
-                        'pattern' =>
-                            'audit-schedules.*',
-
-                        'icon' =>
-                            'audit',
-                    ],
+                    $this->link(
+                        'Audit Schedules',
+                        'audit-schedules.index',
+                        'audit-schedules.*',
+                        'audit'
+                    ),
                 ],
             ],
 
@@ -117,33 +81,19 @@ class WorkspaceShell extends Component
                 'label' => 'Reports',
 
                 'links' => [
-                    [
-                        'label' =>
-                            'Master Reports',
+                    $this->link(
+                        'Master Reports',
+                        'reports.child-laborers.index',
+                        'reports.child-laborers.*',
+                        'report'
+                    ),
 
-                        'route' =>
-                            'reports.child-laborers.index',
-
-                        'pattern' =>
-                            'reports.child-laborers.*',
-
-                        'icon' =>
-                            'report',
-                    ],
-
-                    [
-                        'label' =>
-                            'Statistics',
-
-                        'route' =>
-                            'reports.statistics.index',
-
-                        'pattern' =>
-                            'reports.statistics.*',
-
-                        'icon' =>
-                            'chart',
-                    ],
+                    $this->link(
+                        'Statistics',
+                        'reports.statistics.index',
+                        'reports.statistics.*',
+                        'chart'
+                    ),
                 ],
             ],
 
@@ -151,33 +101,26 @@ class WorkspaceShell extends Component
                 'label' => 'Administration',
 
                 'links' => [
-                    [
-                        'label' =>
-                            'User Management',
+                    $this->link(
+                        'User Management',
+                        'users.index',
+                        'users.*',
+                        'users'
+                    ),
 
-                        'route' =>
-                            'users.index',
+                    $this->link(
+                        'Activity Logs',
+                        'activity-logs.index',
+                        'activity-logs.*',
+                        'history'
+                    ),
 
-                        'pattern' =>
-                            'users.*',
-
-                        'icon' =>
-                            'users',
-                    ],
-
-                    [
-                        'label' =>
-                            'Activity Logs',
-
-                        'route' =>
-                            'activity-logs.index',
-
-                        'pattern' =>
-                            'activity-logs.*',
-
-                        'icon' =>
-                            'history',
-                    ],
+                    $this->link(
+                        'System Security',
+                        'security.status',
+                        'security.*',
+                        'security'
+                    ),
                 ],
             ],
         ];
@@ -220,6 +163,23 @@ class WorkspaceShell extends Component
             ->all();
     }
 
+    /**
+     * @return array<string, string>
+     */
+    private function link(
+        string $label,
+        string $route,
+        string $pattern,
+        string $icon
+    ): array {
+        return compact(
+            'label',
+            'route',
+            'pattern',
+            'icon'
+        );
+    }
+
     private function canSeeLink(
         mixed $user,
         string $routeName
@@ -229,12 +189,16 @@ class WorkspaceShell extends Component
         }
 
         if (
-            $routeName
-                === 'audit-schedules.index'
-            || $routeName
-                === 'activity-logs.index'
-            || $routeName
-                === 'users.index'
+            in_array(
+                $routeName,
+                [
+                    'audit-schedules.index',
+                    'activity-logs.index',
+                    'users.index',
+                    'security.status',
+                ],
+                true
+            )
         ) {
             return $user->isSuperAdmin()
                 || $user->isAdmin();

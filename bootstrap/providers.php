@@ -4,4 +4,5 @@ return [
     App\Providers\AppServiceProvider::class,
     App\Providers\NotificationServiceProvider::class,
     App\Providers\DashboardServiceProvider::class,
+    App\Providers\SecurityServiceProvider::class,
 ];
