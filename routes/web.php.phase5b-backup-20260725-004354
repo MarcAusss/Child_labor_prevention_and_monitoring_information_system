@@ -1,6 +1,4 @@
-﻿<?php
-
-use App\Http\Controllers\Reports\StatisticalReportController;
+<?php
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -737,36 +735,3 @@ Route::middleware('auth')->group(function (): void {
 });
 
 require __DIR__ . '/auth.php';
-
-
-/* PHASE_5B_STATISTICAL_REPORTS_START */
-Route::middleware('auth')
-    ->prefix('reports/statistics')
-    ->name('reports.statistics.')
-    ->group(function (): void {
-        Route::get(
-            '/export/csv',
-            [
-                StatisticalReportController::class,
-                'exportCsv',
-            ]
-        )->name('export.csv');
-
-        Route::get(
-            '/print',
-            [
-                StatisticalReportController::class,
-                'print',
-            ]
-        )->name('print');
-
-        Route::get(
-            '/',
-            [
-                StatisticalReportController::class,
-                'index',
-            ]
-        )->name('index');
-    });
-/* PHASE_5B_STATISTICAL_REPORTS_END */
-
