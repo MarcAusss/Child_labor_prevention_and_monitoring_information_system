@@ -19,169 +19,225 @@ class WorkspaceShell extends Component
     {
         $user = Auth::user();
 
-        return view('components.workspace-shell', [
-            'user' => $user,
-            'navigation' => $this->navigation($user),
-        ]);
+        return view(
+            'components.workspace-shell',
+            [
+                'user' => $user,
+
+                'navigation' =>
+                    $this->navigation($user),
+            ]
+        );
     }
 
     /**
      * @return array<int, array<string, mixed>>
      */
-    private function navigation(mixed $user): array
-    {
+    private function navigation(
+        mixed $user
+    ): array {
         $sections = [
             [
-                'label' => 'Overview',
+                'label' => 'Workspace',
+
                 'links' => [
                     $this->link(
-                        'Role Dashboard',
-                        'dashboard',
-                        [
-                            'dashboard',
-                            'super-admin.dashboard',
-                            'admin.dashboard',
-                            'profiling-officer.dashboard',
-                            'viewer.dashboard',
-                        ],
-                        'home'
-                    ),
-                    $this->link(
-                        'Operations Overview',
+                        'Dashboard',
                         'workspace.dashboard',
-                        ['workspace.dashboard'],
-                        'pulse'
+                        'workspace.dashboard',
+                        'dashboard'
                     ),
+
+                    $this->link(
+                        'Child Profiles',
+                        'child-laborers.index',
+                        'child-laborers.*',
+                        'profiles'
+                    ),
+
+                    $this->link(
+                        'Import Spreadsheet',
+                        'child-laborers.import.index',
+                        'child-laborers.import.*',
+                        'report'
+                    ),
+
                     $this->link(
                         'Notifications',
                         'notifications.index',
-                        ['notifications.*'],
+                        'notifications.*',
                         'bell'
                     ),
                 ],
             ],
+
             [
-                'label' => 'Case Management',
+                'label' => 'Operations',
+
                 'links' => [
-                    $this->link(
-                        'Child Profiles',
-                        'child-laborers.index',
-                        ['child-laborers.*'],
-                        'profiles'
-                    ),
                     $this->link(
                         'Audit Schedules',
                         'audit-schedules.index',
-                        ['audit-schedules.*'],
+                        'audit-schedules.*',
                         'audit'
                     ),
                 ],
             ],
+
             [
-                'label' => 'Information and Reports',
+                'label' => 'Reports',
+
                 'links' => [
                     $this->link(
                         'Master Reports',
                         'reports.child-laborers.index',
-                        ['reports.child-laborers.*'],
+                        'reports.child-laborers.*',
                         'report'
                     ),
+
                     $this->link(
-                        'Statistical Summary',
+                        'Statistics',
                         'reports.statistics.index',
-                        ['reports.statistics.*'],
+                        'reports.statistics.*',
                         'chart'
                     ),
                 ],
             ],
+
             [
-                'label' => 'System Administration',
+                'label' => 'Administration',
+
                 'links' => [
                     $this->link(
                         'User Management',
-                        'admin.users.index',
-                        ['admin.users.*'],
+                        'users.index',
+                        'users.*',
                         'users'
                     ),
+
                     $this->link(
                         'Activity Logs',
                         'activity-logs.index',
-                        ['activity-logs.*'],
+                        'activity-logs.*',
                         'history'
                     ),
+
                     $this->link(
                         'Backup and Recovery',
                         'backups.index',
-                        ['backups.*'],
-                        'backup'
+                        'backups.*',
+                        'history'
                     ),
+
                     $this->link(
                         'System Security',
                         'security.status',
-                        ['security.*'],
+                        'security.*',
                         'security'
                     ),
+
                     $this->link(
                         'Quality Assurance',
                         'quality-assurance.index',
-                        ['quality-assurance.*'],
-                        'quality'
+                        'quality-assurance.*',
+                        'chart'
                     ),
                 ],
             ],
         ];
 
         return collect($sections)
-            ->map(function (array $section) use ($user): array {
-                $links = collect($section['links'])
-                    ->filter(fn (array $link): bool =>
-                        Route::has($link['route'])
-                        && $this->canSeeLink($user, $link['route'])
+            ->map(
+                function (
+                    array $section
+                ) use ($user): array {
+                    $links = collect(
+                        $section['links']
                     )
-                    ->values()
-                    ->all();
+                        ->filter(
+                            fn (
+                                array $link
+                            ): bool =>
+                                Route::has(
+                                    $link['route']
+                                )
+                                && $this
+                                    ->canSeeLink(
+                                        $user,
+                                        $link['route']
+                                    )
+                        )
+                        ->values()
+                        ->all();
 
-                return [
-                    ...$section,
-                    'links' => $links,
-                ];
-            })
-            ->filter(fn (array $section): bool => $section['links'] !== [])
+                    return [
+                        ...$section,
+                        'links' => $links,
+                    ];
+                }
+            )
+            ->filter(
+                fn (array $section): bool =>
+                    $section['links'] !== []
+            )
             ->values()
             ->all();
     }
 
     /**
-     * @param array<int, string> $patterns
-     * @return array<string, mixed>
+     * @return array<string, string>
      */
     private function link(
         string $label,
         string $route,
-        array $patterns,
+        string $pattern,
         string $icon
     ): array {
-        return compact('label', 'route', 'patterns', 'icon');
+        return [
+            'label' => $label,
+            'route' => $route,
+            'pattern' => $pattern,
+            'patterns' => [$pattern],
+            'icon' => $icon,
+        ];
     }
 
-    private function canSeeLink(mixed $user, string $routeName): bool
-    {
+    private function canSeeLink(
+        mixed $user,
+        string $routeName
+    ): bool {
         if (! $user) {
             return false;
         }
 
-        if (in_array($routeName, [
-            'audit-schedules.index',
-            'admin.users.index',
-            'activity-logs.index',
-            'backups.index',
-            'security.status',
-            'quality-assurance.index',
-        ], true)) {
-            return $user->isSuperAdmin() || $user->isAdmin();
+        if (
+            in_array(
+                $routeName,
+                [
+                    'audit-schedules.index',
+                    'activity-logs.index',
+                    'users.index',
+                    'security.status',
+                    'backups.index',
+                    'quality-assurance.index',
+                ],
+                true
+            )
+        ) {
+            return $user->isSuperAdmin()
+                || $user->isAdmin();
         }
 
-        if (str_starts_with($routeName, 'reports.')) {
+        if ($routeName === 'child-laborers.import.index') {
+            return $user->canImportChildLaborers();
+        }
+
+        if (
+            str_starts_with(
+                $routeName,
+                'reports.'
+            )
+        ) {
             return $user->isSuperAdmin()
                 || $user->isAdmin()
                 || $user->isViewer();

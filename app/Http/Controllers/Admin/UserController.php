@@ -106,6 +106,7 @@ class UserController extends Controller
             'email' => strtolower($validated['email']),
             'password' => Hash::make($validated['password']),
             'is_active' => $validated['is_active'],
+            'can_import_child_laborers' => $this->importPermissionForRole((int) $validated['role_id'], (bool) ($validated['can_import_child_laborers'] ?? false)),
         ]);
 
         $user->forceFill([
@@ -178,6 +179,7 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => strtolower($validated['email']),
             'is_active' => $validated['is_active'],
+            'can_import_child_laborers' => $this->importPermissionForRole((int) $validated['role_id'], (bool) ($validated['can_import_child_laborers'] ?? false)),
         ]);
 
         if ($emailChanged) {
@@ -339,4 +341,14 @@ class UserController extends Controller
             )
             ->count();
     }
+
+    private function importPermissionForRole(int $roleId, bool $requested): bool
+    {
+        $role = Role::query()->find($roleId);
+
+        return $role?->slug === Role::PROFILING_OFFICER
+            ? $requested
+            : false;
+    }
+
 }

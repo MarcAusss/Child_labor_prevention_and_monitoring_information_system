@@ -164,6 +164,28 @@
         </div>
     @endunless
 
+    <div class="rounded-2xl border border-sky-200 bg-sky-50 p-5">
+        <div class="flex items-start gap-3">
+            <input type="hidden" name="can_import_child_laborers" value="0">
+            <input
+                id="can_import_child_laborers"
+                name="can_import_child_laborers"
+                type="checkbox"
+                value="1"
+                @checked((bool) old('can_import_child_laborers', $managedUser->can_import_child_laborers ?? false))
+                class="mt-1 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+            >
+            <div>
+                <label for="can_import_child_laborers" class="text-sm font-bold text-slate-800">
+                    Allow spreadsheet import
+                </label>
+                <p class="mt-1 text-xs leading-5 text-slate-600">
+                    This permission is used only for Profiling Officers. Admin and Super Admin already have import access.
+                </p>
+            </div>
+        </div>
+    </div>
+
     <div>
         <label
             for="is_active"

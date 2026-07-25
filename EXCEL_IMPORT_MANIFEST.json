@@ -1,0 +1,26 @@
+{
+  "module": "Excel Child Laborer Import",
+  "files": [
+    "database/migrations/2026_07_25_100000_add_child_laborer_import_permission_to_users_table.php",
+    "database/migrations/2026_07_25_100100_create_child_laborer_imports_table.php",
+    "app/Models/ChildLaborerImport.php",
+    "app/Models/User.php",
+    "app/Http/Controllers/ChildLaborerImportController.php",
+    "routes/web.php",
+    "app/View/Components/WorkspaceShell.php",
+    "app/Http/Requests/Admin/StoreUserRequest.php",
+    "app/Http/Requests/Admin/UpdateUserRequest.php",
+    "app/Http/Controllers/Admin/UserController.php",
+    "resources/views/admin/users/partials/form.blade.php",
+    "resources/views/child-laborers/import/index.blade.php",
+    "resources/views/child-laborers/import/preview.blade.php",
+    "README_EXCEL_IMPORT.md"
+  ],
+  "migration_required": true,
+  "roles": {
+    "super-admin": "always",
+    "admin": "always",
+    "profiling-officer": "granted per user",
+    "viewer": "never"
+  }
+}

@@ -60,6 +60,11 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+
+            'can_import_child_laborers' => [
+                'nullable',
+                'boolean',
+            ],
         ];
     }
 

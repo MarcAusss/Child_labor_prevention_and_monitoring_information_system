@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 use App\Http\Controllers\Reports\StatisticalReportController;
 
@@ -14,6 +14,7 @@ use App\Http\Controllers\ChildLaborer\WorkHazardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LocationLookupController;
 use App\Http\Controllers\ChildLaborerController;
+use App\Http\Controllers\ChildLaborerImportController;
 use App\Http\Controllers\ChildLaborer\BirthInformationController;
 use App\Http\Controllers\ChildLaborer\ResidentialAddressController;
 use App\Http\Controllers\ProfileController;
@@ -208,6 +209,14 @@ Route::middleware('auth')->group(function (): void {
     Route::prefix('child-laborers')
         ->name('child-laborers.')
         ->group(function (): void {
+            Route::prefix('import')->name('import.')->group(function (): void {
+                Route::get('/', [ChildLaborerImportController::class, 'index'])->name('index');
+                Route::get('/template', [ChildLaborerImportController::class, 'template'])->name('template');
+                Route::post('/validate', [ChildLaborerImportController::class, 'validateUpload'])->name('validate');
+                Route::post('/{batch}/confirm', [ChildLaborerImportController::class, 'confirm'])->name('confirm');
+                Route::get('/{batch}/errors', [ChildLaborerImportController::class, 'errors'])->name('errors');
+            });
+
             Route::get(
                 '/',
                 [ChildLaborerController::class, 'index']

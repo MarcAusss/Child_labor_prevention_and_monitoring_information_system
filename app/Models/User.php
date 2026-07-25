@@ -20,6 +20,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_active',
+        'can_import_child_laborers',
         'last_login_at',
     ];
 
@@ -34,6 +35,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'last_login_at' => 'datetime',
             'is_active' => 'boolean',
+            'can_import_child_laborers' => 'boolean',
             'password' => 'hashed',
         ];
     }
@@ -115,6 +117,18 @@ class User extends Authenticatable
             Role::SUPER_ADMIN,
             Role::ADMIN,
         ]);
+    }
+
+    public function canImportChildLaborers(): bool
+    {
+        return $this->isSuperAdmin()
+            || $this->isAdmin()
+            || ($this->isProfilingOfficer() && $this->can_import_child_laborers);
+    }
+
+    public function childLaborerImports(): HasMany
+    {
+        return $this->hasMany(ChildLaborerImport::class, 'uploaded_by');
     }
     public function activityLogs(): HasMany
     {
