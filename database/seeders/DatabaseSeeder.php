@@ -12,5 +12,18 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             DefaultUserSeeder::class,
         ]);
+
+        /*
+         * Demo records are intentionally restricted to local and testing
+         * environments. Production seeding creates only roles and accounts.
+         */
+        if (app()->environment([
+            'local',
+            'testing',
+        ])) {
+            $this->call(
+                CLPMISDemoSeeder::class
+            );
+        }
     }
 }

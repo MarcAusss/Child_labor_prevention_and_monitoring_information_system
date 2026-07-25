@@ -1,0 +1,27 @@
+{
+  "name": "CLPMIS Revert to Previous UI",
+  "direct_project_overlay": true,
+  "restores_previous_modernization": true,
+  "fixes": [
+    "Undefined array key \"pattern\" in workspace-shell.blade.php"
+  ],
+  "files": [
+    "README_REVERT_PREVIOUS_UI.md",
+    "app/View/Components/WorkspaceShell.php",
+    "resources/css/app.css",
+    "resources/js/app.js",
+    "resources/views/components/danger-button.blade.php",
+    "resources/views/components/dashboard-shell.blade.php",
+    "resources/views/components/input-label.blade.php",
+    "resources/views/components/modal.blade.php",
+    "resources/views/components/primary-button.blade.php",
+    "resources/views/components/secondary-button.blade.php",
+    "resources/views/components/text-input.blade.php",
+    "resources/views/components/workspace-shell.blade.php",
+    "resources/views/layouts/app.blade.php",
+    "resources/views/layouts/guest.blade.php",
+    "resources/views/layouts/navigation.blade.php",
+    "tailwind.config.js"
+  ],
+  "migration_required": false
+}

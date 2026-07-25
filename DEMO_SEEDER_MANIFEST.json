@@ -1,0 +1,17 @@
+{
+  "module": "CLPMIS Complete Demonstration Seeder",
+  "direct_project_overlay": true,
+  "created_files": [
+    "database/seeders/CLPMISDemoSeeder.php",
+    "README_DEMO_SEEDER.md"
+  ],
+  "modified_files": [
+    "database/seeders/DatabaseSeeder.php",
+    "database/seeders/DefaultUserSeeder.php"
+  ],
+  "profiles_seeded": 10,
+  "accounts_seeded": 6,
+  "password": "Password123!",
+  "production_demo_data_disabled": true,
+  "migration_required": false
+}

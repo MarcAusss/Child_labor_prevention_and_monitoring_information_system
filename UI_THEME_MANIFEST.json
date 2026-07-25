@@ -1,0 +1,37 @@
+{
+  "name": "CLPMIS Lavender Gray & Navy UI + Night Mode",
+  "direct_project_overlay": true,
+  "design": {
+    "primary": "#8178CA",
+    "navy": "#19243D",
+    "soft_violet": "#EDEBFA",
+    "mist_gray": "#F5F7FB",
+    "danger": "#BE4A52"
+  },
+  "theme_modes": [
+    "light",
+    "dark",
+    "system"
+  ],
+  "storage_key": "clpmis-theme",
+  "migration_required": false,
+  "modified_files": [
+    "README_LAVENDER_NAVY_DARK_MODE.md",
+    "resources/css/app.css",
+    "resources/js/app.js",
+    "resources/views/components/danger-button.blade.php",
+    "resources/views/components/dashboard-shell.blade.php",
+    "resources/views/components/input-label.blade.php",
+    "resources/views/components/modal.blade.php",
+    "resources/views/components/primary-button.blade.php",
+    "resources/views/components/secondary-button.blade.php",
+    "resources/views/components/text-input.blade.php",
+    "resources/views/components/theme-script.blade.php",
+    "resources/views/components/theme-toggle.blade.php",
+    "resources/views/components/workspace-shell.blade.php",
+    "resources/views/layouts/app.blade.php",
+    "resources/views/layouts/guest.blade.php",
+    "resources/views/layouts/navigation.blade.php",
+    "tailwind.config.js"
+  ]
+}
