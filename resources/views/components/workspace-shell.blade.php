@@ -117,7 +117,7 @@
                             @endforeach
                         </div>
                     </section>
-                @endforeach    
+                @endforeach
             </nav>
 
             <div class="border-t border-slate-200 p-4">
