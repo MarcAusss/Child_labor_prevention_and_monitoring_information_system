@@ -120,7 +120,7 @@
                 @endforeach
             </nav>
 
-            <div class="border-t border-slate-200 p-4">
+            <div class="border-t border-slate-200 p-4"> 
                 <div class="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-soft">
                     <div class="flex items-center gap-3">
                         <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sm font-extrabold text-sky-800">
