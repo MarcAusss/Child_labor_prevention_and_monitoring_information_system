@@ -779,3 +779,4 @@ Route::middleware('auth')
     });
 /* PHASE_5B_STATISTICAL_REPORTS_END */
 
+require __DIR__ . '/child_labor_import.php';
